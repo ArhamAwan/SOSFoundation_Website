@@ -1,9 +1,9 @@
 import { requireAdmin } from '@/lib/auth';
 import { q } from '@/lib/db';
 import { MIN_PASSWORD } from '@/lib/password';
-import { Badge, Check, Field, Flash, Head, Icon, Shell } from '../_ui';
-import { ConfirmButton } from '../_ui/client';
-import { createUser, deleteUser, updateUser } from '../actions';
+import { Badge, Check, Field, Flash, Head, Icon } from '@/app/admin/_ui';
+import { ConfirmButton } from '@/app/admin/_ui/client';
+import { createUser, deleteUser, updateUser } from '@/app/admin/actions';
 
 const PERMISSIONS = [
   ['Add and edit content', true, true], ['Publish and unpublish', true, true], ['Upload and edit photos', true, true],
@@ -17,7 +17,7 @@ export default async function Users({ searchParams }) {
   const users = await q('SELECT id, name, email, role, active, last_login_at FROM users ORDER BY name');
   const editing = users.find((u) => u.id === Number(params.edit));
   return (
-    <Shell user={me} current="/admin/users">
+    <>
       <Head title="Users and roles" sub="Who can sign in and what they are allowed to do. Admins only." />
       <Flash params={params} />
       <div className="edit">
@@ -81,6 +81,6 @@ export default async function Users({ searchParams }) {
           )}
         </div>
       </div>
-    </Shell>
+    </>
   );
 }

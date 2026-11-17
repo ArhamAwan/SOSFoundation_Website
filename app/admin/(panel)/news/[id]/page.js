@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { requireUser } from '@/lib/auth';
 import { NEWS_CATEGORIES, PROGRAMMES, getItem, isPreview, mediaMap } from '@/lib/content';
-import { Field, Flash, Head, Select, Shell } from '../../_ui';
-import { CountedText, ImagePicker, UnsavedGuard } from '../../_ui/client';
-import { PublishBox } from '../../_ui/lists';
-import { saveItem } from '../../actions';
+import { Field, Flash, Head, Select } from '@/app/admin/_ui';
+import { CountedText, ImagePicker, UnsavedGuard } from '@/app/admin/_ui/client';
+import { PublishBox } from '@/app/admin/_ui/lists';
+import { saveItem } from '@/app/admin/actions';
 
 export default async function NewsEditor({ params, searchParams }) {
   const user = await requireUser();
@@ -17,7 +17,7 @@ export default async function NewsEditor({ params, searchParams }) {
   const library = [...media.values()].map((m) => ({ id: m.id, url: m.url, alt: m.alt, filename: m.filename }));
   const d = item.data;
   return (
-    <Shell user={user} current="/admin/news">
+    <>
       <Head title={item.id ? 'Edit news post' : 'Add news post'} crumb={<Link href="/admin/news">News and Events</Link>} />
       <Flash params={flash} />
       <form action={saveItem} className="edit">
@@ -62,6 +62,6 @@ export default async function NewsEditor({ params, searchParams }) {
           </section>
         </div>
       </form>
-    </Shell>
+    </>
   );
 }

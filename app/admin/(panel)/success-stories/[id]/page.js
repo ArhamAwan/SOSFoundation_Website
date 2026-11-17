@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { requireUser } from '@/lib/auth';
 import { PROGRAMMES, getItem, isPreview, mediaMap } from '@/lib/content';
-import { Check, Field, Flash, Head, Select, Shell } from '../../_ui';
-import { ImagePicker, UnsavedGuard } from '../../_ui/client';
-import { PublishBox } from '../../_ui/lists';
-import { saveItem } from '../../actions';
+import { Check, Field, Flash, Head, Select } from '@/app/admin/_ui';
+import { ImagePicker, UnsavedGuard } from '@/app/admin/_ui/client';
+import { PublishBox } from '@/app/admin/_ui/lists';
+import { saveItem } from '@/app/admin/actions';
 
 export default async function StoryEditor({ params, searchParams }) {
   const user = await requireUser();
@@ -17,7 +17,7 @@ export default async function StoryEditor({ params, searchParams }) {
   const library = [...media.values()].map((m) => ({ id: m.id, url: m.url, alt: m.alt, filename: m.filename }));
   const d = item.data;
   return (
-    <Shell user={user} current="/admin/success-stories">
+    <>
       <Head title={item.id ? 'Edit success story' : 'Add success story'} crumb={<Link href="/admin/success-stories">Success Stories</Link>} />
       <Flash params={flash} />
       <form action={saveItem} className="edit">
@@ -61,6 +61,6 @@ export default async function StoryEditor({ params, searchParams }) {
           </section>
         </div>
       </form>
-    </Shell>
+    </>
   );
 }

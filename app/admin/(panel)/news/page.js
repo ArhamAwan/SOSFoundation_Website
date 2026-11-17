@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { requireUser } from '@/lib/auth';
 import { formatDate, isPreview, listItems, mediaMap } from '@/lib/content';
-import { Badge, Flash, Head, Icon, Shell } from '../_ui';
-import { ListFilters, RowActions, filterItems, statusOf } from '../_ui/lists';
+import { Badge, Flash, Head, Icon } from '@/app/admin/_ui';
+import { ListFilters, RowActions, filterItems, statusOf } from '@/app/admin/_ui/lists';
 
 export default async function NewsList({ searchParams }) {
   const user = await requireUser();
@@ -10,7 +10,7 @@ export default async function NewsList({ searchParams }) {
   const [items, media, preview] = await Promise.all([listItems('news'), mediaMap(), isPreview()]);
   const { rows, counts } = filterItems(items, media, params);
   return (
-    <Shell user={user} current="/admin/news">
+    <>
       <Head title="News and Events" sub="Posts shown on the News and Events page, newest first.">
         <Link className="btn" href="/admin/news/new"><Icon name="plus" />Add news post</Link>
       </Head>
@@ -40,6 +40,6 @@ export default async function NewsList({ searchParams }) {
         </table>
         {rows.length === 0 ? <p className="empty-state">{items.length ? 'No posts match this filter.' : 'No news posts yet. Add the first one.'}</p> : null}
       </div>
-    </Shell>
+    </>
   );
 }

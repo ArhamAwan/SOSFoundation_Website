@@ -1,9 +1,9 @@
 import { requireUser } from '@/lib/auth';
 import { q } from '@/lib/db';
 import { mediaMap } from '@/lib/content';
-import { Badge, Check, Field, Flash, Head, Shell } from '../_ui';
-import { ConfirmButton, Uploader } from '../_ui/client';
-import { deleteMedia, saveMedia } from '../actions';
+import { Badge, Check, Field, Flash, Head } from '@/app/admin/_ui';
+import { ConfirmButton, Uploader } from '@/app/admin/_ui/client';
+import { deleteMedia, saveMedia } from '@/app/admin/actions';
 
 const FOCUS = [['center', 'Centre'], ['center top', 'Top'], ['center 25%', 'Upper'], ['center 75%', 'Lower'], ['center bottom', 'Bottom'], ['left center', 'Left'], ['right center', 'Right']];
 
@@ -19,7 +19,7 @@ export default async function MediaLibrary({ searchParams }) {
   const focus = selected && !FOCUS.some(([v]) => v === selected.pos) ? [[selected.pos, `Custom (${selected.pos})`], ...FOCUS] : FOCUS;
   const link = (m) => `/admin/media?${show !== 'all' ? `show=${show}&` : ''}id=${m.id}`;
   return (
-    <Shell user={user} current="/admin/media">
+    <>
       <Head title="Media library" sub="Every photo used on the website. Photos are resized and converted to WebP when you upload them.">
         <Uploader />
       </Head>
@@ -72,6 +72,6 @@ export default async function MediaLibrary({ searchParams }) {
           )}
         </div>
       </div>
-    </Shell>
+    </>
   );
 }

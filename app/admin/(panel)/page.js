@@ -3,9 +3,9 @@ import { requireUser } from '@/lib/auth';
 import { q } from '@/lib/db';
 import { formatDate, isLive, isPreview, issuesOf, listItems, mediaMap } from '@/lib/content';
 import seed from '@/lib/generated/seed.json';
-import { Badge, Flash, Head, Icon, Shell } from './_ui';
-import { ConfirmButton } from './_ui/client';
-import { setPreviewMode } from './actions';
+import { Badge, Flash, Head, Icon } from '@/app/admin/_ui';
+import { ConfirmButton } from '@/app/admin/_ui/client';
+import { setPreviewMode } from '@/app/admin/actions';
 
 export default async function Dashboard({ searchParams }) {
   const user = await requireUser();
@@ -31,7 +31,7 @@ export default async function Dashboard({ searchParams }) {
   ];
 
   return (
-    <Shell user={user} current="/admin">
+    <>
       <Head title="Dashboard" sub="What is on the website now and what still needs your attention." />
       <Flash params={params} />
       <div className="tiles">
@@ -94,6 +94,6 @@ export default async function Dashboard({ searchParams }) {
           </section>
         </div>
       </div>
-    </Shell>
+    </>
   );
 }

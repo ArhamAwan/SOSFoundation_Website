@@ -1,7 +1,8 @@
 'use client';
 // The few parts of the admin that need to run in the browser.
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 /** A submit button that asks first. */
 export function ConfirmButton({ message, className = 'btn danger', children, ...rest }) {
@@ -164,5 +165,28 @@ export function ImagePicker({ name, media, value, multiple = false, emptyLabel =
         </div>
       </dialog>
     </div>
+  );
+}
+
+// Sections that are connected to the database. The rest are still design previews and load as ordinary pages.
+const CONNECTED = ['/admin', '/admin/news', '/admin/success-stories', '/admin/media', '/admin/users'];
+
+/** The left menu. Connected sections switch without reloading the page. */
+export function SideNav({ groups }) {
+  const path = usePathname();
+  const current = (href) => (href === '/admin' ? path === '/admin' : path === href || path.startsWith(href + '/'));
+  return (
+    <nav className="adm-nav" aria-label="Admin sections">
+      {groups.map((group) => [
+        group.group ? <span key={group.group} className="adm-group">{group.group}</span> : null,
+        ...group.items.map((item) => {
+          const inner = <><span className="ic" aria-hidden="true" dangerouslySetInnerHTML={{ __html: item.icon }} />{item.label}</>;
+          const props = { 'aria-current': current(item.href) ? 'page' : undefined };
+          return CONNECTED.includes(item.href)
+            ? <Link key={item.href} href={item.href} {...props}>{inner}</Link>
+            : <a key={item.href} href={item.href} {...props}>{inner}</a>;
+        }),
+      ])}
+    </nav>
   );
 }

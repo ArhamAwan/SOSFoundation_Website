@@ -2,10 +2,12 @@
 import Link from 'next/link';
 import icons from '@/lib/generated/icons.json';
 import nav from '@/lib/generated/nav.json';
+import { SideNav } from './client';
 
 export const Icon = ({ name, html }) => <span className="ic" aria-hidden="true" dangerouslySetInnerHTML={{ __html: html || icons[name] || '' }} />;
 
-export function Shell({ user, current, children }) {
+export function Shell({ user, children }) {
+  const groups = nav.map((group) => ({ group: group.group, items: group.items.filter((item) => user.isAdmin || item.href !== '/admin/users') }));
   return (
     <div className="adm">
       <aside className="adm-side">
@@ -16,20 +18,7 @@ export function Shell({ user, current, children }) {
             <span>Website admin</span>
           </span>
         </Link>
-        <nav className="adm-nav" aria-label="Admin sections">
-          {nav.map((group) => [
-            group.group ? <span key={group.group} className="adm-group">{group.group}</span> : null,
-            ...group.items
-              .filter((item) => user.isAdmin || item.href !== '/admin/users')
-              .map((item) => (
-                // Plain links: some sections are still design previews served outside this app shell.
-                <a key={item.href} href={item.href} aria-current={item.href === current ? 'page' : undefined}>
-                  <Icon html={item.icon} />
-                  {item.label}
-                </a>
-              )),
-          ])}
-        </nav>
+        <SideNav groups={groups} />
         <div className="adm-foot">
           <a href="/" target="_blank" rel="noreferrer"><Icon name="ext" />View website</a>
         </div>

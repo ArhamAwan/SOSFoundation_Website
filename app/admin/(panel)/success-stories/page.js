@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { requireUser } from '@/lib/auth';
 import { isPreview, listItems, mediaMap } from '@/lib/content';
-import { Badge, Flash, Head, Icon, Shell } from '../_ui';
-import { ListFilters, RowActions, filterItems, statusOf } from '../_ui/lists';
+import { Badge, Flash, Head, Icon } from '@/app/admin/_ui';
+import { ListFilters, RowActions, filterItems, statusOf } from '@/app/admin/_ui/lists';
 
 export default async function StoryList({ searchParams }) {
   const user = await requireUser();
@@ -10,7 +10,7 @@ export default async function StoryList({ searchParams }) {
   const [items, media, preview] = await Promise.all([listItems('story'), mediaMap(), isPreview()]);
   const { rows, counts } = filterItems(items, media, params);
   return (
-    <Shell user={user} current="/admin/success-stories">
+    <>
       <Head title="Success Stories" sub="Stories shown on the Success Stories page. A story needs confirmed consent before it can go live.">
         <Link className="btn" href="/admin/success-stories/new"><Icon name="plus" />Add success story</Link>
       </Head>
@@ -41,6 +41,6 @@ export default async function StoryList({ searchParams }) {
         </table>
         {rows.length === 0 ? <p className="empty-state">{items.length ? 'No stories match this filter.' : 'No success stories yet. Add the first one.'}</p> : null}
       </div>
-    </Shell>
+    </>
   );
 }

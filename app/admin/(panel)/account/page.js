@@ -1,13 +1,13 @@
 import { requireUser } from '@/lib/auth';
 import { MIN_PASSWORD } from '@/lib/password';
-import { Field, Flash, Head, Shell } from '../_ui';
-import { updateAccount } from '../actions';
+import { Field, Flash, Head } from '@/app/admin/_ui';
+import { updateAccount } from '@/app/admin/actions';
 
 export default async function AccountPage({ searchParams }) {
   const user = await requireUser();
   const params = await searchParams;
   return (
-    <Shell user={user}>
+    <>
       <Head title="My account" sub={`Signed in as ${user.email}.`} />
       <Flash params={params} />
       <form action={updateAccount} className="panel" style={{ maxWidth: 560 }}>
@@ -19,6 +19,6 @@ export default async function AccountPage({ searchParams }) {
         </div>
         <p style={{ marginTop: 20 }}><button className="btn" type="submit">Save</button></p>
       </form>
-    </Shell>
+    </>
   );
 }

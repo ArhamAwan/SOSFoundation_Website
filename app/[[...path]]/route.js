@@ -13,6 +13,8 @@ const PREVIEW_NOTE =
   '<strong>Design preview.</strong> This section is not connected to the database yet, so nothing on this screen saves. ' +
   'News and Events, Success Stories, Media library and Users are working.</div>';
 
+const PREVIEW_OF = { 'admin/pages/1': '/about-us', 'admin/programmes/1': '/programmes/education-for-all', 'admin/blog/1': '/blog/post-template' };
+
 async function adminPreview(path, request) {
   const user = await getUser();
   if (!user) return Response.redirect(new URL('/admin/login', request.url), 303);
@@ -25,6 +27,11 @@ async function adminPreview(path, request) {
     .replace(/(<span aria-hidden="true"[^>]*><\/span>)Admin(<\/span>)/, '$1' + (user.isAdmin ? 'Admin' : 'Editor') + '$2')
     .replace(/<a href="\/admin\/login"([^>]*>(?:(?!<\/a>)[\s\S])*Sign out)/, '<a href="/admin/logout"$1')
     .replace(/(<main class="adm-main"[^>]*>)/, '$1' + PREVIEW_NOTE);
+  // "Preview" on these editors opens the public page they belong to.
+  const target = PREVIEW_OF[path];
+  if (target) {
+    page = page.replace(/<button( class="adm-btn")[^>]*( style="[^"]*")>((?:(?!<\/button>)[\s\S])*?Preview)<\/button>/, `<a$1 href="${target}" target="_blank" rel="noreferrer"$2>$3</a>`);
+  }
   return html(page);
 }
 
@@ -41,7 +48,12 @@ export async function GET(request, { params }) {
     else if (path.startsWith('our-impact/success-stories/')) page = await storyPage(path.slice('our-impact/success-stories/'.length));
     else page = staticPage(path);
     if (page instanceof Response) return page;
-    if (typeof page === 'string') return html(page, 200, path.startsWith('admin') ? 'no-store' : 'public, max-age=0, must-revalidate');
+    if (typeof page === 'string') {
+      const fromDatabase = path.startsWith('news-and-events') || path.startsWith('our-impact/success-stories');
+      // Fixed pages can sit on Vercel's network for an hour; database pages are always fresh so edits show up at once.
+      const cache = path.startsWith('admin') ? 'no-store' : fromDatabase ? 'public, max-age=0, must-revalidate' : 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400';
+      return html(page, 200, cache);
+    }
     return html(staticPage('404'), 404);
   } catch (err) {
     if (err instanceof DatabaseNotConfigured) {
