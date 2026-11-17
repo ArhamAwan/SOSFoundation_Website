@@ -1,0 +1,46 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Sign in | SOS Foundation admin</title><link rel="icon" href="/assets/img/sos-shield.jpg"><style>@font-face{font-family:'Figtree';font-weight:400;font-display:swap;src:url(/assets/fonts/figtree-latin-400-normal.woff2) format('woff2')}@font-face{font-family:'Figtree';font-weight:500;font-display:swap;src:url(/assets/fonts/figtree-latin-500-normal.woff2) format('woff2')}@font-face{font-family:'Figtree';font-weight:600;font-display:swap;src:url(/assets/fonts/figtree-latin-600-normal.woff2) format('woff2')}@font-face{font-family:'Figtree';font-weight:700;font-display:swap;src:url(/assets/fonts/figtree-latin-700-normal.woff2) format('woff2')}@font-face{font-family:'Figtree';font-weight:800;font-display:swap;src:url(/assets/fonts/figtree-latin-800-normal.woff2) format('woff2')}</style>
+
+<style>
+body{margin:0}
+a{color:#373b73}a:hover{color:#373b73}
+.adm-nav a:hover{background:rgba(255,255,255,.12)}
+.adm-row:hover{background:#f7f8fc}
+.adm-btn{transition:transform .15s ease,box-shadow .15s ease}
+.adm-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(31,33,71,.18)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #59ba53;outline-offset:2px}
+@media (max-width:860px){
+.adm-side{padding:14px 16px 10px!important}
+.adm-nav{flex-direction:row!important;overflow-x:auto;gap:4px!important;padding-bottom:6px;scrollbar-width:none}
+.adm-nav::-webkit-scrollbar{display:none}
+.adm-nav>*{flex:none}
+.adm-nav .adm-group,.adm-foot{display:none!important}
+.adm-main{padding:20px 16px 48px!important}
+}
+</style>
+</head><body>
+
+<div style="min-height: 820px; box-sizing: border-box; padding: 48px 20px; background: #373b73; color: #373b73; font-family: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; display: flex; align-items: center; justify-content: center">
+<main style="width: 100%; max-width: 420px; box-sizing: border-box; padding: 36px 32px; background: #ffffff; border-radius: 8px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: center; gap: 12px">
+<img src="/assets/img/sos-shield.jpg" alt="" style="display: block; height: 52px; width: auto">
+<span style="display: flex; flex-direction: column; line-height: 1.15"><span style="font-weight: 800; font-size: 19px">SOS Foundation</span><span style="font-size: 14px; color: #55587f">Website admin</span></span>
+</div>
+<h1 style="margin: 4px 0 0; font-size: 26px; font-weight: 800; line-height: 1.2">Sign in</h1>
+<form style="display: flex; flex-direction: column; gap: 16px">
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; min-width: 0"><label for="login-email" style="font-size: 14px; font-weight: 700">Email</label><input id="login-email" type="email" value="" style="width: 100%; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #9a9cba; border-radius: 4px; background: #ffffff; color: #373b73; font: inherit; font-size: 15px"></div>
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; min-width: 0"><label for="login-pass" style="font-size: 14px; font-weight: 700">Password</label><input id="login-pass" type="password" value="" style="width: 100%; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #9a9cba; border-radius: 4px; background: #ffffff; color: #373b73; font: inherit; font-size: 15px"></div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><label for="login-keep" style="display: flex; align-items: flex-start; gap: 10px; min-height: 44px; box-sizing: border-box; padding: 10px 0; font-size: 15px; font-weight: 600; cursor: pointer"><input id="login-keep" type="checkbox" style="flex: none; width: 20px; height: 20px; margin: 1px 0 0; accent-color: #373b73"><span>Keep me signed in</span></label><a href="#" style="font-size: 14px; font-weight: 700">Forgot password?</a></div>
+<a class="adm-btn" href="/admin" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; box-sizing: border-box; padding: 8px 16px; border-radius: 4px; font: inherit; font-weight: 700; font-size: 15px; text-decoration: none; cursor: pointer; white-space: nowrap; min-height: 48px; border: 1px solid #373b73; background: #373b73; color: #ffffff; font-size: 16px">Sign in</a>
+</form>
+<p style="margin: 0; font-size: 13px; color: #55587f">After your password you are asked for a 6-digit code from your authenticator app. Accounts are created by an admin; there is no public sign-up.</p>
+</main>
+</div>
+<script>class DCLogic{constructor(){this.props={}}setState(s){this.state=Object.assign({},this.state||{},s);this.__r()}forceUpdate(){this.__r()}__r(){const v=this.renderVals();this.__v=v;document.querySelectorAll("[data-hole]").forEach(e=>{e.textContent=v[e.dataset.hole]})}}
+
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+
+const __c=new Component();__c.__r();document.querySelectorAll("[data-onclick]").forEach(e=>e.addEventListener("click",ev=>__c.__v[e.dataset.onclick](ev)));document.querySelectorAll("[data-ref]").forEach(e=>__c.__v[e.dataset.ref](e));__c.componentDidMount&&__c.componentDidMount();</script></body></html>
