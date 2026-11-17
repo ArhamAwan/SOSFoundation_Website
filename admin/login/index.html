@@ -1,4 +1,4 @@
-<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Sign in | SOS Foundation admin</title><link rel="icon" href="/assets/img/sos-shield.jpg"><style>@font-face{font-family:'Figtree';font-weight:400;font-display:swap;src:url(/assets/fonts/figtree-latin-400-normal.woff2) format('woff2')}@font-face{font-family:'Figtree';font-weight:500;font-display:swap;src:url(/assets/fonts/figtree-latin-500-normal.woff2) format('woff2')}@font-face{font-family:'Figtree';font-weight:600;font-display:swap;src:url(/assets/fonts/figtree-latin-600-normal.woff2) format('woff2')}@font-face{font-family:'Figtree';font-weight:700;font-display:swap;src:url(/assets/fonts/figtree-latin-700-normal.woff2) format('woff2')}@font-face{font-family:'Figtree';font-weight:800;font-display:swap;src:url(/assets/fonts/figtree-latin-800-normal.woff2) format('woff2')}</style>
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Sign in | SOS Foundation admin</title><link rel="preload" href="/assets/fonts/figtree.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="/assets/img/sosf-mark.webp"><style>@font-face{font-family:'Figtree';font-weight:300 900;font-style:normal;font-display:swap;src:url(/assets/fonts/figtree.woff2) format('woff2')}@font-face{font-family:'Figtree Fallback';src:local('Arial'),local('Helvetica Neue'),local('Liberation Sans');size-adjust:100%;ascent-override:95%;descent-override:25%;line-gap-override:0%}img[style*='object-fit: cover']{background-color:#e3e6f0}section.no-rv>img{background-color:transparent}@view-transition{navigation:auto}@keyframes vt-out{to{opacity:0}}@keyframes vt-in{from{opacity:0;transform:translateY(12px)}}@media (prefers-reduced-motion:no-preference){::view-transition-old(root){animation:vt-out .16s ease-out both}::view-transition-new(root){animation:vt-in .34s cubic-bezier(.2,.7,.2,1) both}body>header,body>div>header{view-transition-name:site-header}.adm-side{view-transition-name:admin-menu}::view-transition-group(site-header),::view-transition-group(admin-menu){animation-duration:.2s}}@media (prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}</style>
 
 <style>
 body{margin:0}
@@ -17,12 +17,12 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-vis
 .adm-main{padding:20px 16px 48px!important}
 }
 </style>
-</head><body>
+<script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[href=\"#\"]"}}]},"eagerness":"moderate"}]}</script></head><body>
 
-<div style="min-height: 820px; box-sizing: border-box; padding: 48px 20px; background: #373b73; color: #373b73; font-family: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; display: flex; align-items: center; justify-content: center">
+<div style="min-height: 820px; box-sizing: border-box; padding: 48px 20px; background: #373b73; color: #373b73; font-family: 'Figtree', 'Figtree Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5; display: flex; align-items: center; justify-content: center">
 <main style="width: 100%; max-width: 420px; box-sizing: border-box; padding: 36px 32px; background: #ffffff; border-radius: 8px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; align-items: center; gap: 12px">
-<img src="/assets/img/sos-shield.jpg" alt="" style="display: block; height: 52px; width: auto">
+<img width="256" height="256" decoding="async" src="/assets/img/sosf-mark.webp" alt="" style="display: block; height: 56px; width: 56px">
 <span style="display: flex; flex-direction: column; line-height: 1.15"><span style="font-weight: 800; font-size: 19px">SOS Foundation</span><span style="font-size: 14px; color: #55587f">Website admin</span></span>
 </div>
 <h1 style="margin: 4px 0 0; font-size: 26px; font-weight: 800; line-height: 1.2">Sign in</h1>
@@ -43,4 +43,37 @@ return {};
 }
 }
 
-const __c=new Component();__c.__r();document.querySelectorAll("[data-onclick]").forEach(e=>e.addEventListener("click",ev=>__c.__v[e.dataset.onclick](ev)));document.querySelectorAll("[data-ref]").forEach(e=>__c.__v[e.dataset.ref](e));__c.componentDidMount&&__c.componentDidMount();</script></body></html>
+const __c=new Component();__c.__r();document.querySelectorAll("[data-onclick]").forEach(e=>e.addEventListener("click",ev=>__c.__v[e.dataset.onclick](ev)));document.querySelectorAll("[data-ref]").forEach(e=>__c.__v[e.dataset.ref](e));__c.componentDidMount&&__c.componentDidMount();
+(function(){
+var NAVY='#373b73';
+function paint(b,on,admin){b.setAttribute('aria-pressed',on?'true':'false');b.style.background=on?NAVY:'#ffffff';b.style.color=on?'#ffffff':NAVY;if(admin){b.style.borderColor=on?NAVY:'#9a9cba';}}
+function show(el,ok){if(el.dataset.d===undefined){el.dataset.d=el.style.display||'';}el.style.display=ok?el.dataset.d:'none';}
+/* public pages: filter tabs and search boxes */
+document.querySelectorAll('.chips').forEach(function(ch){
+var scope=ch.closest('section');if(!scope){return;}
+var items=[].slice.call(scope.querySelectorAll('[data-tag]'));
+var input=scope.querySelector('input[type=search]');var tag='All';var note=null;
+function apply(){var q=input?input.value.trim().toLowerCase():'';var n=0;
+items.forEach(function(it){var ok=(tag==='All'||it.dataset.tag===tag)&&(!q||it.textContent.toLowerCase().indexOf(q)>-1);show(it,ok);if(ok){n++;}});
+if(items.length){if(!note){note=document.createElement('p');note.setAttribute('role','status');note.style.cssText='margin:32px 0 0;font-size:19px;font-weight:600';items[0].parentElement.parentElement.insertBefore(note,items[0].parentElement.nextSibling);}
+note.textContent=n?'':(q?'Nothing matches "'+input.value.trim()+'". Try a different word.':'Nothing in '+tag+' yet.');note.style.display=n?'none':'block';}}
+ch.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){ch.querySelectorAll('button').forEach(function(x){paint(x,x===b,false);});tag=b.textContent.trim();apply();});});
+if(input){input.addEventListener('input',apply);}
+});
+document.querySelectorAll('section').forEach(function(sec){if(sec.querySelector('.chips')){return;}var input=sec.querySelector('input[type=search]');var items=[].slice.call(sec.querySelectorAll('[data-tag]'));
+if(input&&items.length){input.addEventListener('input',function(){var q=input.value.trim().toLowerCase();items.forEach(function(it){show(it,!q||it.textContent.toLowerCase().indexOf(q)>-1);});});}});
+/* admin screens: status and category pills, multi-select toggles */
+var groups=[];document.querySelectorAll('main button[aria-pressed]').forEach(function(b){var p=b.parentElement;if(p.classList.contains('chips')){return;}if(groups.indexOf(p)<0){groups.push(p);}});
+groups.forEach(function(g){var btns=[].slice.call(g.querySelectorAll(':scope > button[aria-pressed]'));
+var multi=btns.every(function(b){return /^\d+$/.test(b.textContent.trim());});
+var table=null;var el=g.parentElement;while(el&&!table){var sib=el.nextElementSibling;while(sib&&!table){table=sib.matches('table')?sib:sib.querySelector('table');sib=sib.nextElementSibling;}el=el.parentElement;if(el&&el.tagName==='MAIN'){break;}}
+btns.forEach(function(b){b.addEventListener('click',function(){
+if(multi){paint(b,b.getAttribute('aria-pressed')!=='true',true);return;}
+btns.forEach(function(x){paint(x,x===b,true);});
+if(!table){return;}
+var rows=[].slice.call(table.querySelectorAll('tbody tr'));var m=b.textContent.trim().match(/^(.*?)(?:\s+(\d+))?$/);var label=m[1];var count=m[2]===undefined?null:+m[2];var one=label.replace(/s$/,'');
+var hit=rows.filter(function(r){var t=r.textContent;return t.indexOf(label)>-1||t.indexOf(one)>-1;});
+rows.forEach(function(r){var keep=/^All/.test(label)||r.textContent.indexOf('[')>-1||(hit.length?hit.indexOf(r)>-1:(count!==null&&count>0));show(r,keep);});
+});});});
+})();
+</script></body></html>
