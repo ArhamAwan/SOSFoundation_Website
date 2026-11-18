@@ -328,7 +328,7 @@
   {
    "url": "/assets/img/a-girls-education.webp",
    "filename": "a-girls-education.webp",
-   "alt": "",
+   "alt": "Students at a girls' education and empowerment session.",
    "width": 1000,
    "height": 750
   },
@@ -356,7 +356,7 @@
   {
    "url": "/assets/img/a-kitchen-gardening.webp",
    "filename": "a-kitchen-gardening.webp",
-   "alt": "",
+   "alt": "Women take part in a kitchen gardening session.",
    "width": 1000,
    "height": 747
   },
@@ -365,7 +365,7 @@
    "filename": "a-plant-muslim-colony.webp",
    "alt": "",
    "width": 780,
-   "height": 1040
+   "height": 956
   },
   {
    "url": "/assets/img/a-plant-pha.webp",
@@ -384,7 +384,7 @@
   {
    "url": "/assets/img/a-stem.webp",
    "filename": "a-stem.webp",
-   "alt": "",
+   "alt": "Students attend a STEM awareness activity in an auditorium.",
    "width": 1000,
    "height": 667
   },
@@ -393,7 +393,7 @@
    "filename": "a-stitching-class.webp",
    "alt": "",
    "width": 963,
-   "height": 1280
+   "height": 1184
   },
   {
    "url": "/assets/img/a-stitching-launch.webp",
@@ -405,7 +405,7 @@
   {
    "url": "/assets/img/a-stitching-machines.webp",
    "filename": "a-stitching-machines.webp",
-   "alt": "",
+   "alt": "A woman receives a stitching machine from SOS Foundation volunteers.",
    "width": 808,
    "height": 676
   },
@@ -420,15 +420,15 @@
    "url": "/assets/img/a-volunteers.webp",
    "filename": "a-volunteers.webp",
    "alt": "",
-   "width": 1000,
-   "height": 667
+   "width": 1600,
+   "height": 1067
   },
   {
    "url": "/assets/img/a-winter-relief.webp",
    "filename": "a-winter-relief.webp",
    "alt": "",
-   "width": 1000,
-   "height": 1043
+   "width": 1600,
+   "height": 1668
   },
   {
    "url": "/assets/img/a-womens-day-lokvirsa.webp",
@@ -461,7 +461,7 @@
   {
    "url": "/assets/img/about-main.webp",
    "filename": "about-main.webp",
-   "alt": "Audience at an SOS Foundation event.",
+   "alt": "Participants seated in a large hall at an SOS Foundation event.",
    "width": 1600,
    "height": 780
   },
@@ -473,6 +473,76 @@
    "height": 300
   },
   {
+   "url": "/assets/img/banner-1.webp",
+   "filename": "banner-1.webp",
+   "alt": "Students and teachers walk with 'Walk for Literacy' placards.",
+   "width": 1600,
+   "height": 1066
+  },
+  {
+   "url": "/assets/img/banner-10.webp",
+   "filename": "banner-10.webp",
+   "alt": "Girls hold literacy placards at the Literacy Walk.",
+   "width": 1600,
+   "height": 1066
+  },
+  {
+   "url": "/assets/img/banner-2.webp",
+   "filename": "banner-2.webp",
+   "alt": "Participants stand around a conference table at the 21st Century Teaching Skills workshop.",
+   "width": 1113,
+   "height": 742
+  },
+  {
+   "url": "/assets/img/banner-3.webp",
+   "filename": "banner-3.webp",
+   "alt": "Audience seated in an auditorium at an SOS Foundation event.",
+   "width": 1600,
+   "height": 1066
+  },
+  {
+   "url": "/assets/img/banner-4.webp",
+   "filename": "banner-4.webp",
+   "alt": "A full auditorium seen from the back during an SOS Foundation event.",
+   "width": 1600,
+   "height": 780
+  },
+  {
+   "url": "/assets/img/banner-5.webp",
+   "filename": "banner-5.webp",
+   "alt": "A speaker addresses guests at a World Teachers' Day art competition.",
+   "width": 1495,
+   "height": 1080
+  },
+  {
+   "url": "/assets/img/banner-6.webp",
+   "filename": "banner-6.webp",
+   "alt": "Students in white uniforms sit with their certificates in a hall.",
+   "width": 1600,
+   "height": 1200
+  },
+  {
+   "url": "/assets/img/banner-7.webp",
+   "filename": "banner-7.webp",
+   "alt": "Children hold a placard reading 'No Child Should Be Left Behind'.",
+   "width": 1493,
+   "height": 1705
+  },
+  {
+   "url": "/assets/img/banner-8.webp",
+   "filename": "banner-8.webp",
+   "alt": "Guests and organisers stand on stage in a university auditorium at an SOS Foundation event.",
+   "width": 1128,
+   "height": 752
+  },
+  {
+   "url": "/assets/img/banner-9.webp",
+   "filename": "banner-9.webp",
+   "alt": "Children and volunteers hold a banner reading '26 Million Out of School' at the Literacy Walk on International Literacy Day.",
+   "width": 1600,
+   "height": 1066
+  },
+  {
    "url": "/assets/img/ceo.webp",
    "filename": "ceo.webp",
    "alt": "Dr. Abdus Salam",
@@ -482,16 +552,128 @@
   {
    "url": "/assets/img/chairman.webp",
    "filename": "chairman.webp",
-   "alt": "Kanwar M. Tariq",
+   "alt": "Kanwar M. Tariq, Chairman, SOS Group of Companies.",
    "width": 768,
    "height": 768
   },
   {
    "url": "/assets/img/climate-plantation.webp",
    "filename": "climate-plantation.webp",
-   "alt": "Women carry young fruit-tree saplings at a plantation drive.",
+   "alt": "Women plant saplings during Monsoon Plantation Week.",
    "width": 740,
    "height": 702
+  },
+  {
+   "url": "/assets/img/cov-1.webp",
+   "filename": "cov-1.webp",
+   "alt": "Press clipping from Dawn covering the Literacy Walk.",
+   "width": 1000,
+   "height": 827
+  },
+  {
+   "url": "/assets/img/cov-10.webp",
+   "filename": "cov-10.webp",
+   "alt": "Press clipping from The Express Tribune covering the Literacy Walk.",
+   "width": 1000,
+   "height": 1071
+  },
+  {
+   "url": "/assets/img/cov-11.webp",
+   "filename": "cov-11.webp",
+   "alt": "Press clipping from Daily Nawa-i-Waqt covering the Literacy Walk.",
+   "width": 1000,
+   "height": 1168
+  },
+  {
+   "url": "/assets/img/cov-12.webp",
+   "filename": "cov-12.webp",
+   "alt": "Press clipping from Daily Nai Baat covering the Literacy Walk.",
+   "width": 431,
+   "height": 533
+  },
+  {
+   "url": "/assets/img/cov-13.webp",
+   "filename": "cov-13.webp",
+   "alt": "Press clipping from The Daily 92 News covering the Literacy Walk.",
+   "width": 496,
+   "height": 538
+  },
+  {
+   "url": "/assets/img/cov-14.webp",
+   "filename": "cov-14.webp",
+   "alt": "Press clipping from Daily Ghaznavi covering the Literacy Walk.",
+   "width": 444,
+   "height": 840
+  },
+  {
+   "url": "/assets/img/cov-15.webp",
+   "filename": "cov-15.webp",
+   "alt": "Press clipping from Daily Jehan Pakistan covering the Literacy Walk.",
+   "width": 439,
+   "height": 806
+  },
+  {
+   "url": "/assets/img/cov-16.webp",
+   "filename": "cov-16.webp",
+   "alt": "Press clipping from Urdu daily covering the Literacy Walk.",
+   "width": 1000,
+   "height": 983
+  },
+  {
+   "url": "/assets/img/cov-2.webp",
+   "filename": "cov-2.webp",
+   "alt": "Press clipping from News Line (newslinepk.com) covering the Literacy Walk.",
+   "width": 1000,
+   "height": 1529
+  },
+  {
+   "url": "/assets/img/cov-3.webp",
+   "filename": "cov-3.webp",
+   "alt": "Press clipping from Daily Siachan covering the Literacy Walk.",
+   "width": 625,
+   "height": 1600
+  },
+  {
+   "url": "/assets/img/cov-4.webp",
+   "filename": "cov-4.webp",
+   "alt": "Press clipping from Daily Country News covering the Literacy Walk.",
+   "width": 1000,
+   "height": 859
+  },
+  {
+   "url": "/assets/img/cov-5.webp",
+   "filename": "cov-5.webp",
+   "alt": "Press clipping from Parliament Times covering the Literacy Walk.",
+   "width": 1000,
+   "height": 930
+  },
+  {
+   "url": "/assets/img/cov-6.webp",
+   "filename": "cov-6.webp",
+   "alt": "Press clipping from apurdu.org covering the Literacy Walk.",
+   "width": 880,
+   "height": 1600
+  },
+  {
+   "url": "/assets/img/cov-7.webp",
+   "filename": "cov-7.webp",
+   "alt": "Press clipping from Daily Akhbar Navees covering the Literacy Walk.",
+   "width": 1000,
+   "height": 695
+  },
+  {
+   "url": "/assets/img/cov-8.webp",
+   "filename": "cov-8.webp",
+   "alt": "Press clipping from Independent TV covering the Literacy Walk.",
+   "width": 720,
+   "height": 1031
+  },
+  {
+   "url": "/assets/img/cov-9.webp",
+   "filename": "cov-9.webp",
+   "alt": "Press clipping from Daily Lead Pakistan covering the Literacy Walk.",
+   "width": 1000,
+   "height": 893
   },
   {
    "url": "/assets/img/irshad-ali-p.webp",
@@ -511,13 +693,13 @@
    "url": "/assets/img/literacy-walk-islamabad.webp",
    "filename": "literacy-walk-islamabad.webp",
    "alt": "Students, teachers, social workers and citizens during the Literacy Walk organised by SOS Foundation on International Literacy Day.",
-   "width": 1000,
-   "height": 667
+   "width": 1600,
+   "height": 1067
   },
   {
    "url": "/assets/img/m2.webp",
    "filename": "m2.webp",
-   "alt": "Audience seated in an auditorium at an SOS Foundation event.",
+   "alt": "",
    "width": 1600,
    "height": 1066
   },
@@ -559,9 +741,9 @@
   {
    "url": "/assets/img/news4-a.webp",
    "filename": "news4-a.webp",
-   "alt": "Children and an adult behind a banner, holding placards with literacy slogans.",
-   "width": 1000,
-   "height": 666
+   "alt": "Children and volunteers march with placards at the Literacy Walk.",
+   "width": 1600,
+   "height": 1066
   },
   {
    "url": "/assets/img/news4-b.webp",

@@ -13,7 +13,10 @@ const PREVIEW_NOTE =
   '<strong>Design preview.</strong> This section is not connected to the database yet, so nothing on this screen saves. ' +
   'News and Events, Success Stories, Media library and Users are working.</div>';
 
-const PREVIEW_OF = { 'admin/pages/1': '/about-us', 'admin/programmes/1': '/programmes/education-for-all', 'admin/blog/1': '/blog/post-template' };
+const PREVIEW_OF = { 'admin/pages/1': '/about-us', 'admin/programmes/1': '/programmes/education-for-all', 'admin/blog/1': '/blog' };
+
+// Layouts that are not real pages yet: the blog post layout has no posts, and the thank-you page waits for the forms to be connected.
+const NOT_PUBLIC = new Set(['blog/post-template', 'thank-you']);
 
 async function adminPreview(path, request) {
   const user = await getUser();
@@ -38,7 +41,9 @@ async function adminPreview(path, request) {
 export async function GET(request, { params }) {
   const { path: parts = [] } = await params;
   const path = parts.join('/');
-  if (!/^[a-z0-9\-/]*$/.test(path)) return html(staticPage('404'), 404);
+  const origin = new URL(request.url).origin;
+  const notFound = () => html(staticPage('404').replaceAll('@@ORIGIN@@', origin), 404);
+  if (!/^[a-z0-9\-/]*$/.test(path) || NOT_PUBLIC.has(path)) return notFound();
   try {
     let page = null;
     if (path === 'admin' || path.startsWith('admin/')) page = await adminPreview(path, request);
@@ -49,17 +54,18 @@ export async function GET(request, { params }) {
     else page = staticPage(path);
     if (page instanceof Response) return page;
     if (typeof page === 'string') {
+      page = page.replaceAll('@@ORIGIN@@', origin);
       const fromDatabase = path.startsWith('news-and-events') || path.startsWith('our-impact/success-stories');
       // Fixed pages can sit on Vercel's network for an hour; database pages are always fresh so edits show up at once.
       const cache = path.startsWith('admin') ? 'no-store' : fromDatabase ? 'public, max-age=0, must-revalidate' : 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400';
       return html(page, 200, cache);
     }
-    return html(staticPage('404'), 404);
+    return notFound();
   } catch (err) {
     if (err instanceof DatabaseNotConfigured) {
       // No database yet: show the page as it was designed, so the public site never breaks.
       const fallback = path.startsWith('admin') ? null : staticPage(path);
-      if (fallback) return html(fallback);
+      if (fallback) return html(fallback.replaceAll('@@ORIGIN@@', origin));
       return html('<!doctype html><meta charset="utf-8"><title>Database not connected</title><body style="font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 20px; line-height: 1.6; color: #373b73">' +
         '<h1>Database not connected</h1><p>This page reads from the database. In Vercel, open the project, go to Storage, create a Neon Postgres database and connect it to this project, then redeploy.</p></body>', 503);
     }
