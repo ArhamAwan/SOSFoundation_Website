@@ -1,6 +1,67 @@
 {
  "news": [
   {
+   "added": "content_2026_11_19",
+   "sort": -1,
+   "title": "SOS Foundation Signs MoU with BECS to Promote Education for Out-of-School Children in Islamabad",
+   "slug": "sos-foundation-signs-mou-with-becs-to-promote-education-for-out-of-school-children-in-islamabad",
+   "category": "",
+   "date": null,
+   "location": "",
+   "caption": "Representatives of SOS Foundation and BECS at the signing of the MoU.",
+   "body": [
+    "SOS Foundation has signed a Memorandum of Understanding (MoU) with the Basic Education Community Schools (BECS), Ministry of Federal Education and Professional Training, to strengthen access to education for out-of-school children living in the underserved communities and slum areas of Islamabad.",
+    "Through this collaboration, both organisations aim to establish educational facilities, promote literacy, and provide learning opportunities to children who lack access to formal education.",
+    "This partnership reflects a shared commitment to making education accessible to every child and building a brighter, more inclusive future through the Education for All initiative."
+   ],
+   "image": "/assets/img/news-becs-mou.webp",
+   "pos": "center 35%",
+   "gallery": []
+  },
+  {
+   "title": "SOS Foundation Organises Literacy Walk on International Literacy Day",
+   "slug": "sos-foundation-organises-literacy-walk-on-international-literacy-day",
+   "category": "Campaigns",
+   "date": "2026-09-08",
+   "location": "Islamabad",
+   "caption": "Students, teachers, social workers and citizens during the Literacy Walk organised by SOS Foundation on International Literacy Day.",
+   "body": [
+    "Islamabad, 8 September 2026: On International Literacy Day, SOS Foundation organised a Literacy Walk from Mr. Books, F-6 Markaz to the National Press Club, Islamabad, to highlight the urgent issue of 26 million out-of-school children in Pakistan.",
+    "Students, teachers, social workers, and citizens joined the walk to advocate for Article 25-A of the Constitution of Pakistan and UN Sustainable Development Goal 4 (SDG-4): Quality Education for All.",
+    "The participants called for collective action to raise awareness, inspire concrete steps, and ensure that every child's right to education is upheld."
+   ],
+   "image": "/assets/img/literacy-walk-islamabad.webp",
+   "pos": "center",
+   "gallery": [
+    {
+     "image": "/assets/img/news4-a.webp",
+     "alt": "Children and an adult behind a banner, holding placards with literacy slogans."
+    },
+    {
+     "image": "/assets/img/news4-b.webp",
+     "alt": "Schoolboys in uniform hold a Walk for Literacy banner and placards."
+    }
+   ]
+  },
+  {
+   "title": "SOS Foundation, ICCI and EduTransform Organise Teachers' Training Workshop on 21st Century Teaching Skills",
+   "slug": "sos-foundation-icci-and-edutransform-organise-teachers-training-workshop-on-21st-century-teaching-skills",
+   "category": "Workshops and Trainings",
+   "date": "2026-06-24",
+   "location": "Islamabad",
+   "caption": "Participants, guests and organisers at the One-Day Teachers' Training Workshop on 21st Century Teaching Skills at ICCI, Islamabad.",
+   "body": [
+    "Islamabad, 24 June 2026: SOS Foundation, in collaboration with the Islamabad Chamber of Commerce & Industry (ICCI) and EduTransform, organised a one-day teachers' training workshop on 21st Century Teaching Skills at ICCI, Islamabad.",
+    "Sardar Tahir Mehmood, President ICCI, was the Chief Guest at the event, while H.E. Naeem Khan, Pakistan's Ambassador to Rwanda, graced the occasion as Guest of Honor and interacted directly with the participants.",
+    "Dr. Abdus Salam, CEO SOS Foundation, welcomed the participants. Dr. Aneela Malik, CEO EduTransform, conducted an insightful and highly engaging training session.",
+    "Educators from across the twin cities attended the workshop in large numbers. The participants appreciated the initiative and described it as the need of the hour for Pakistan's education landscape.",
+    "President ICCI Sardar Tahir Mehmood acknowledged and appreciated the efforts of SOS Foundation in organizing this important initiative."
+   ],
+   "image": "/assets/img/teachers-training-workshop-icci.webp",
+   "pos": "center",
+   "gallery": []
+  },
+  {
    "title": "RWU and SOS Foundation Sign MoU to Strengthen Academic and Community Collaboration",
    "slug": "rwu-and-sos-foundation-sign-mou-to-strengthen-academic-and-community-collaboration",
    "category": "",
@@ -56,49 +117,6 @@
      "alt": "Two representatives sign the MoU at a table, with staff standing behind them."
     }
    ]
-  },
-  {
-   "title": "SOS Foundation Organises Literacy Walk on International Literacy Day",
-   "slug": "sos-foundation-organises-literacy-walk-on-international-literacy-day",
-   "category": "Campaigns",
-   "date": "2026-09-08",
-   "location": "Islamabad",
-   "caption": "Students, teachers, social workers and citizens during the Literacy Walk organised by SOS Foundation on International Literacy Day.",
-   "body": [
-    "Islamabad, 8 September 2026: On International Literacy Day, SOS Foundation organised a Literacy Walk from Mr. Books, F-6 Markaz to the National Press Club, Islamabad, to highlight the urgent issue of 26 million out-of-school children in Pakistan.",
-    "Students, teachers, social workers, and citizens joined the walk to advocate for Article 25-A of the Constitution of Pakistan and UN Sustainable Development Goal 4 (SDG-4): Quality Education for All.",
-    "The participants called for collective action to raise awareness, inspire concrete steps, and ensure that every child's right to education is upheld."
-   ],
-   "image": "/assets/img/literacy-walk-islamabad.webp",
-   "pos": "center",
-   "gallery": [
-    {
-     "image": "/assets/img/news4-a.webp",
-     "alt": "Children and an adult behind a banner, holding placards with literacy slogans."
-    },
-    {
-     "image": "/assets/img/news4-b.webp",
-     "alt": "Schoolboys in uniform hold a Walk for Literacy banner and placards."
-    }
-   ]
-  },
-  {
-   "title": "SOS Foundation, ICCI and EduTransform Organise Teachers' Training Workshop on 21st Century Teaching Skills",
-   "slug": "sos-foundation-icci-and-edutransform-organise-teachers-training-workshop-on-21st-century-teaching-skills",
-   "category": "Workshops and Trainings",
-   "date": "2026-06-24",
-   "location": "Islamabad",
-   "caption": "Participants, guests and organisers at the One-Day Teachers' Training Workshop on 21st Century Teaching Skills at ICCI, Islamabad.",
-   "body": [
-    "Islamabad, 24 June 2026: SOS Foundation, in collaboration with the Islamabad Chamber of Commerce & Industry (ICCI) and EduTransform, organised a one-day teachers' training workshop on 21st Century Teaching Skills at ICCI, Islamabad.",
-    "Sardar Tahir Mehmood, President ICCI, was the Chief Guest at the event, while H.E. Naeem Khan, Pakistan's Ambassador to Rwanda, graced the occasion as Guest of Honor and interacted directly with the participants.",
-    "Dr. Abdus Salam, CEO SOS Foundation, welcomed the participants. Dr. Aneela Malik, CEO EduTransform, conducted an insightful and highly engaging training session.",
-    "Educators from across the twin cities attended the workshop in large numbers. The participants appreciated the initiative and described it as the need of the hour for Pakistan's education landscape.",
-    "President ICCI Sardar Tahir Mehmood acknowledged and appreciated the efforts of SOS Foundation in organizing this important initiative."
-   ],
-   "image": "/assets/img/teachers-training-workshop-icci.webp",
-   "pos": "center",
-   "gallery": []
   }
  ],
  "stories": [
@@ -231,6 +249,7 @@
    }
   },
   {
+   "added": "content_2026_11_19",
    "title": "A Daily Meal, Served with Dignity",
    "slug": "a-daily-meal-served-with-dignity",
    "programme": "Health and Nutrition",
@@ -251,7 +270,12 @@
      "\"After a hard day's work, this meal gives me strength. It feels like someone cares about us.\" (Rasheed, Multan)"
     ]
    ],
-   "photo": null
+   "photo": {
+    "image": "/assets/img/story-daily-meal.webp",
+    "alt": "Labourers are served a cooked meal at an SOS Foundation meal distribution point in Multan.",
+    "pos": "center 40%",
+    "portrait": false
+   }
   },
   {
    "title": "Clean Water for Mumtazabad",
@@ -356,7 +380,7 @@
   {
    "url": "/assets/img/a-kitchen-gardening.webp",
    "filename": "a-kitchen-gardening.webp",
-   "alt": "Women take part in a kitchen gardening session.",
+   "alt": "",
    "width": 1000,
    "height": 747
   },
@@ -384,7 +408,7 @@
   {
    "url": "/assets/img/a-stem.webp",
    "filename": "a-stem.webp",
-   "alt": "Students attend a STEM awareness activity in an auditorium.",
+   "alt": "",
    "width": 1000,
    "height": 667
   },
@@ -550,11 +574,11 @@
    "height": 667
   },
   {
-   "url": "/assets/img/chairman.webp",
-   "filename": "chairman.webp",
+   "url": "/assets/img/chairman-2026.webp",
+   "filename": "chairman-2026.webp",
    "alt": "Kanwar M. Tariq, Chairman, SOS Group of Companies.",
-   "width": 768,
-   "height": 768
+   "width": 1000,
+   "height": 1000
   },
   {
    "url": "/assets/img/climate-plantation.webp",
@@ -713,7 +737,7 @@
   {
    "url": "/assets/img/mm.webp",
    "filename": "mm.webp",
-   "alt": "A speaker addresses guests at a World Teachers' Day event.",
+   "alt": "",
    "width": 1600,
    "height": 1067
   },
@@ -723,6 +747,13 @@
    "alt": "Najma Parveen",
    "width": 768,
    "height": 768
+  },
+  {
+   "url": "/assets/img/news-becs-mou.webp",
+   "filename": "news-becs-mou.webp",
+   "alt": "Representatives of SOS Foundation and BECS at the signing of the MoU.",
+   "width": 1000,
+   "height": 676
   },
   {
    "url": "/assets/img/news3-a.webp",
@@ -835,6 +866,13 @@
    "alt": "Representatives of RWU, SOS Foundation and NCHD exchange the signed literacy MoU.",
    "width": 1000,
    "height": 678
+  },
+  {
+   "url": "/assets/img/story-daily-meal.webp",
+   "filename": "story-daily-meal.webp",
+   "alt": "Labourers are served a cooked meal at an SOS Foundation meal distribution point in Multan.",
+   "width": 1000,
+   "height": 546
   },
   {
    "url": "/assets/img/story1.webp",

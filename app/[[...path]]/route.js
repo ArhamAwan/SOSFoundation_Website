@@ -1,7 +1,7 @@
 // Every public page, and the admin sections that are still design previews, are served from here.
 import { getUser } from '@/lib/auth';
 import { DatabaseNotConfigured } from '@/lib/db';
-import { esc, newsListPage, newsPostPage, staticPage, storiesListPage, storyPage } from '@/lib/public';
+import { esc, homePage, newsListPage, newsPostPage, staticPage, storiesListPage, storyPage } from '@/lib/public';
 
 export const dynamic = 'force-dynamic';
 
@@ -47,6 +47,7 @@ export async function GET(request, { params }) {
   try {
     let page = null;
     if (path === 'admin' || path.startsWith('admin/')) page = await adminPreview(path, request);
+    else if (path === '') page = await homePage();
     else if (path === 'news-and-events') page = await newsListPage();
     else if (path.startsWith('news-and-events/')) page = await newsPostPage(path.slice('news-and-events/'.length));
     else if (path === 'our-impact/success-stories') page = await storiesListPage();
@@ -55,7 +56,7 @@ export async function GET(request, { params }) {
     if (page instanceof Response) return page;
     if (typeof page === 'string') {
       page = page.replaceAll('@@ORIGIN@@', origin);
-      const fromDatabase = path.startsWith('news-and-events') || path.startsWith('our-impact/success-stories');
+      const fromDatabase = path === '' || path.startsWith('news-and-events') || path.startsWith('our-impact/success-stories');
       // Fixed pages can sit on Vercel's network for an hour; database pages are always fresh so edits show up at once.
       const cache = path.startsWith('admin') ? 'no-store' : fromDatabase ? 'public, max-age=0, must-revalidate' : 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400';
       return html(page, 200, cache);
