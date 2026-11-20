@@ -1,11 +1,10 @@
-// Every form on the website posts here: the entry is saved for the admin panel, copied to the Google Sheet, and the visitor sees the thank-you page.
+// Every form on the website posts here: the entry is saved as a lead in the admin panel, and the visitor sees the thank-you page.
 import { createHash } from 'node:crypto';
 import { q, DatabaseNotConfigured } from '@/lib/db';
-import { sendSubmission } from '@/lib/sheets';
 
 export const dynamic = 'force-dynamic';
 
-const FORMS = new Set(['Volunteer', 'Partnership / Corporate CSR', 'Ambassador (Youth / Brand)', 'Contact', 'Newsletter']);
+const FORMS = new Set(['Volunteer Registration', 'Youth Registration', 'Brand Ambassador', 'Partnership', 'Corporate CSR', 'Contact', 'Newsletter']);
 const go = (request, path) => new Response(null, { status: 303, headers: { location: path } }); // relative, so it stays on the address the visitor used
 
 export async function POST(request) {
@@ -42,9 +41,7 @@ export async function POST(request) {
       const [{ n }] = await q(`SELECT count(*)::int AS n FROM submissions WHERE ip_hash = $1 AND created_at > now() - interval '10 minutes'`, [ipHash]);
       if (n >= 10) return go(request, '/thank-you');
     }
-    const [sub] = await q(`INSERT INTO submissions (form, page, data, ip_hash) VALUES ($1, $2, $3::text::jsonb, $4) RETURNING id, form, page, data, created_at`,
-      [formName, page, JSON.stringify(data), ipHash]);
-    await sendSubmission(sub);
+    await q(`INSERT INTO submissions (form, page, data, ip_hash) VALUES ($1, $2, $3::text::jsonb, $4)`, [formName, page, JSON.stringify(data), ipHash]);
   } catch (err) {
     if (!(err instanceof DatabaseNotConfigured)) console.error('Form submission failed', err);
     return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not sent</title><body style="font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 20px; line-height: 1.6; color: #373b73">' +

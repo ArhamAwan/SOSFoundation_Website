@@ -11,7 +11,7 @@ const html = (body, status = 200, cache = 'no-store') =>
 const PREVIEW_NOTE =
   '<div role="note" style="margin: 0 0 20px; padding: 12px 16px; border: 1px solid #e0b100; border-left-width: 6px; border-radius: 4px; background: #fff8db; color: #373b73; font-size: 15px; line-height: 1.5">' +
   '<strong>Design preview.</strong> This section is not connected to the database yet, so nothing on this screen saves. ' +
-  'News and Events, Success Stories, Form submissions, Media library and Users are working.</div>';
+  'News and Events, Success Stories, Leads, Media library and Users are working.</div>';
 
 const PREVIEW_OF = { 'admin/pages/1': '/about-us', 'admin/programmes/1': '/programmes/education-for-all', 'admin/blog/1': '/blog' };
 

@@ -50,7 +50,7 @@ export async function saveItem(form) {
     type === 'news'
       ? { date: /^\d{4}-\d{2}-\d{2}$/.test(text(form, 'date')) ? text(form, 'date') : null, location: text(form, 'location'), category: text(form, 'category'),
           programme: text(form, 'programme'), partners: text(form, 'partners'), body: text(form, 'body'), image, caption: text(form, 'caption'),
-          gallery: form.getAll('gallery').map(Number).filter(Boolean), meta_description: text(form, 'meta_description'), home: form.get('home') === 'on' }
+          gallery: form.getAll('gallery').map(Number).filter(Boolean), meta_description: text(form, 'meta_description'), home: [1, 2, 3].includes(Number(form.get('home'))) ? Number(form.get('home')) : 0 }
       : { programme: text(form, 'programme'), focus: text(form, 'focus'), location: text(form, 'location'), partners: text(form, 'partners'), body: text(form, 'body'),
           image, layout: text(form, 'layout') === 'landscape' ? 'landscape' : 'portrait', featured: form.get('featured') === 'on', consent_confirmed: form.get('consent_confirmed') === 'on' };
 
@@ -75,6 +75,10 @@ export async function saveItem(form) {
       [type, slug, title, status, JSON.stringify(data), user.id]);
   }
   const there = `${def.admin}/${saved.id}`;
+  // A Home page position belongs to one post: giving it to this post takes it from any other.
+  if (type === 'news' && data.home) {
+    await q(`UPDATE items SET data = jsonb_set(data, '{home}', '0'::jsonb) WHERE type = 'news' AND id <> $1 AND (data->>'home') = $2`, [saved.id, String(data.home)]);
+  }
   if (blocked.length) go(there, 'error', 'Saved as a draft. It cannot be published yet: ' + blocked.join('; ') + '.');
   go(there, 'ok', intent === 'publish' ? 'Published.' : intent === 'unpublish' ? 'Unpublished. It is now a draft.' : 'Saved.');
 }
@@ -186,34 +190,5 @@ export async function updateSubmission(form) {
 export async function deleteSubmission(form) {
   await requireAdmin();
   await q('DELETE FROM submissions WHERE id = $1', [Number(form.get('id')) || 0]);
-  go('/admin/submissions', 'ok', 'Submission deleted.');
-}
-
-export async function saveSheetUrl(form) {
-  await requireAdmin();
-  const url = text(form, 'sheet_url');
-  if (url && !/^https:\/\/script\.google(usercontent)?\.com\/.+/.test(url)) go('/admin/submissions', 'error', 'That is not a Google Apps Script web app address. It starts with https://script.google.com/macros/s/ and ends with /exec.');
-  await setSetting('sheet_url', url);
-  go('/admin/submissions', 'ok', url ? 'Google Sheet address saved. Use "Send a test row" to check it.' : 'Google Sheet disconnected. Submissions are kept on this website only.');
-}
-
-export async function testSheet() {
-  await requireAdmin();
-  const { sheetUrl, postRow } = await import('@/lib/sheets');
-  const url = await sheetUrl();
-  if (!url) go('/admin/submissions', 'error', 'Save the Google Sheet web app address first.');
-  const ok = await postRow(url, { form: 'Test', page: '/admin/submissions', received: new Date().toISOString(), id: 0, fields: { Message: 'Test row from the website admin panel. You can delete this tab.' } });
-  go('/admin/submissions', ok ? 'ok' : 'error', ok ? 'The test row arrived: look for a tab called "Test" in the Google Sheet.' : 'The Google Sheet did not answer. Check the address, and that the web app is deployed with access for "Anyone".');
-}
-
-export async function resendToSheet() {
-  await requireAdmin();
-  const { sheetUrl, sendSubmission } = await import('@/lib/sheets');
-  const url = await sheetUrl();
-  if (!url) go('/admin/submissions', 'error', 'Save the Google Sheet web app address first.');
-  const rows = await q(`SELECT id, form, page, data, created_at FROM submissions WHERE sheet <> 'sent' ORDER BY id LIMIT 100`);
-  let sent = 0;
-  for (const row of rows) if (await sendSubmission(row, url)) sent++;
-  const left = rows.length - sent;
-  go('/admin/submissions', left ? 'error' : 'ok', rows.length === 0 ? 'Every submission is already in the Google Sheet.' : `${sent} of ${rows.length} sent to the Google Sheet.${left ? ' The rest did not arrive; try again later.' : ''}`);
+  go('/admin/submissions', 'ok', 'Lead deleted.');
 }

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { requireUser } from '@/lib/auth';
 import { NEWS_CATEGORIES, PROGRAMMES, getItem, isPreview, mediaMap } from '@/lib/content';
-import { Check, Field, Flash, Head, Select } from '@/app/admin/_ui';
+import { Field, Flash, Head, Select } from '@/app/admin/_ui';
 import { CountedText, ImagePicker, UnsavedGuard } from '@/app/admin/_ui/client';
 import { PublishBox } from '@/app/admin/_ui/lists';
 import { saveItem } from '@/app/admin/actions';
@@ -54,7 +54,14 @@ export default async function NewsEditor({ params, searchParams }) {
           <PublishBox item={item} media={media} preview={preview} isAdmin={user.isAdmin} />
           <section className="panel">
             <h2>Home page</h2>
-            <Check name="home" label="Show on the Home page" on={d.home} note="The Home page shows three posts: ticked ones first, then the newest. The first one is shown large." />
+            <Field label="Position on the Home page" id="home" help="The Home page shows three news posts. Position 1 is shown large. Places left empty show the newest other posts.">
+              <select className="ctl" id="home" name="home" defaultValue={String(d.home === true ? 3 : Number(d.home) || 0)}>
+                <option value="0">Not on the Home page</option>
+                <option value="1">1 (large)</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </Field>
           </section>
           <section className="panel">
             <h2>Featured photo</h2>

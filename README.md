@@ -10,10 +10,9 @@ The public website and its admin panel in one Next.js project.
 - **News and Events** and **Success Stories**: add, edit, publish, unpublish and delete. The public pages
   `/news-and-events` and `/our-impact/success-stories` (and each post and story page) are built from the database.
 - **Media library**: upload photos (resized and converted to WebP in the browser), alt text, credit, consent, focal point.
-- **Website forms** (Volunteer, Partnership / Corporate CSR, Ambassador, Contact, Newsletter): each entry is saved and
-  listed under **Form submissions** (`/admin/submissions`), with status, private note, reply by email and CSV export.
-  Entries are also copied to a Google Sheet once one is connected; see [docs/google-sheet-setup.md](docs/google-sheet-setup.md).
-- **Home page news**: tick "Show on the Home page" on a news post to put it in the Home page news section.
+- **Website forms** (Volunteer, Youth and Brand Ambassador, Partnership, Corporate CSR, Contact, Newsletter): each entry
+  is saved as a lead under **Leads** (`/admin/submissions`), with search, status, private note, reply by email and CSV export.
+- **Home page news**: give a news post a "Position on the Home page" (1 to 3; 1 is shown large).
 - **Dashboard**: live counts and a "needs attention" list worked out from the content.
 - **Preview / Live switch**: in Preview everything published is shown. In Live, posts and stories that do not meet the
   brief's rules (date, meta description, consent, alt text) and photos of people without recorded consent are hidden.

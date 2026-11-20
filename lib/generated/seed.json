@@ -3,7 +3,7 @@
   {
    "added": "content_2026_11_19",
    "sort": -1,
-   "home": true,
+   "home": 3,
    "title": "SOS Foundation Signs MoU with BECS to Promote Education for Out-of-School Children in Islamabad",
    "slug": "sos-foundation-signs-mou-with-becs-to-promote-education-for-out-of-school-children-in-islamabad",
    "category": "",
@@ -63,7 +63,7 @@
    "gallery": []
   },
   {
-   "home": true,
+   "home": 2,
    "title": "RWU and SOS Foundation Sign MoU to Strengthen Academic and Community Collaboration",
    "slug": "rwu-and-sos-foundation-sign-mou-to-strengthen-academic-and-community-collaboration",
    "category": "",
@@ -96,7 +96,7 @@
    "gallery": []
   },
   {
-   "home": true,
+   "home": 1,
    "title": "RWU, SOS Foundation and NCHD Sign MoU to Promote Literacy",
    "slug": "rwu-sos-foundation-and-nchd-sign-mou-to-promote-literacy",
    "category": "",
@@ -341,7 +341,7 @@
   {
    "url": "/assets/img/a-21c-workshop.webp",
    "filename": "a-21c-workshop.webp",
-   "alt": "",
+   "alt": "Participants at the 21st Century Teaching Skills workshop.",
    "width": 1000,
    "height": 667
   },
@@ -446,14 +446,14 @@
   {
    "url": "/assets/img/a-volunteers.webp",
    "filename": "a-volunteers.webp",
-   "alt": "",
+   "alt": "Young women taking part in an SOS Foundation session.",
    "width": 1600,
    "height": 1067
   },
   {
    "url": "/assets/img/a-winter-relief.webp",
    "filename": "a-winter-relief.webp",
-   "alt": "",
+   "alt": "SOS Foundation volunteers with winter relief supplies.",
    "width": 1600,
    "height": 1668
   },
@@ -481,7 +481,7 @@
   {
    "url": "/assets/img/a-youth-skills-day.webp",
    "filename": "a-youth-skills-day.webp",
-   "alt": "",
+   "alt": "Young people at an SOS Foundation event on World Youth Skills Day.",
    "width": 1000,
    "height": 448
   },
@@ -876,6 +876,27 @@
    "alt": "Representatives of RWU, SOS Foundation and NCHD exchange the signed literacy MoU.",
    "width": 1000,
    "height": 678
+  },
+  {
+   "url": "/assets/img/stock-blog.webp",
+   "filename": "stock-blog.webp",
+   "alt": "An open notebook and pen on a desk.",
+   "width": 1000,
+   "height": 667
+  },
+  {
+   "url": "/assets/img/stock-islamabad.webp",
+   "filename": "stock-islamabad.webp",
+   "alt": "Faisal Mosque and the Margalla Hills, Islamabad.",
+   "width": 1000,
+   "height": 667
+  },
+  {
+   "url": "/assets/img/stock-reports.webp",
+   "filename": "stock-reports.webp",
+   "alt": "A stack of printed reports with coloured page markers.",
+   "width": 1000,
+   "height": 1504
   },
   {
    "url": "/assets/img/story-daily-meal.webp",

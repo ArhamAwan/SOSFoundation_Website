@@ -25,7 +25,7 @@ export default async function Dashboard({ searchParams }) {
   ].filter(([n]) => n > 0);
 
   const tiles = [
-    [newSubs, 'New form submissions', '/admin/submissions'],
+    [newSubs, 'New leads', '/admin/submissions'],
     [seed.counts.programmes, 'Programmes', '/admin/programmes'], [news.length, 'News and events', '/admin/news'], [0, 'Blog posts', '/admin/blog'],
     [stories.length, 'Success stories', '/admin/success-stories'], [0, 'Reports', '/admin/reports'], [seed.counts.albums, 'Gallery albums', '/admin/gallery'],
     [seed.counts.partners, 'Partners', '/admin/partners'], [photos.length, 'Photos in library', '/admin/media'], ...(user.isAdmin ? [[users, 'Users', '/admin/users']] : []),
