@@ -3,6 +3,7 @@
   {
    "added": "content_2026_11_19",
    "sort": -1,
+   "home": true,
    "title": "SOS Foundation Signs MoU with BECS to Promote Education for Out-of-School Children in Islamabad",
    "slug": "sos-foundation-signs-mou-with-becs-to-promote-education-for-out-of-school-children-in-islamabad",
    "category": "",
@@ -62,6 +63,7 @@
    "gallery": []
   },
   {
+   "home": true,
    "title": "RWU and SOS Foundation Sign MoU to Strengthen Academic and Community Collaboration",
    "slug": "rwu-and-sos-foundation-sign-mou-to-strengthen-academic-and-community-collaboration",
    "category": "",
@@ -94,6 +96,7 @@
    "gallery": []
   },
   {
+   "home": true,
    "title": "RWU, SOS Foundation and NCHD Sign MoU to Promote Literacy",
    "slug": "rwu-sos-foundation-and-nchd-sign-mou-to-promote-literacy",
    "category": "",
@@ -784,11 +787,18 @@
    "height": 666
   },
   {
-   "url": "/assets/img/prog-climate.webp",
-   "filename": "prog-climate.webp",
+   "url": "/assets/img/nuss-2026.webp",
+   "filename": "nuss-2026.webp",
+   "alt": "SOS Foundation and NUSS representatives at an event in Islamabad.",
+   "width": 1000,
+   "height": 666
+  },
+  {
+   "url": "/assets/img/prog-climate-2026.webp",
+   "filename": "prog-climate-2026.webp",
    "alt": "SOS Foundation activity: Climate Change and Community Engagement.",
-   "width": 1024,
-   "height": 768
+   "width": 1600,
+   "height": 1200
   },
   {
    "url": "/assets/img/prog-community.webp",
@@ -805,11 +815,11 @@
    "height": 1066
   },
   {
-   "url": "/assets/img/prog-health.webp",
-   "filename": "prog-health.webp",
+   "url": "/assets/img/prog-health-2026.webp",
+   "filename": "prog-health-2026.webp",
    "alt": "SOS Foundation activity: Health and Nutrition.",
-   "width": 1422,
-   "height": 640
+   "width": 765,
+   "height": 532
   },
   {
    "url": "/assets/img/prog-humanitarian.webp",
@@ -819,18 +829,18 @@
    "height": 963
   },
   {
+   "url": "/assets/img/prog-humanrights-2026.webp",
+   "filename": "prog-humanrights-2026.webp",
+   "alt": "SOS Foundation activity: Human Rights.",
+   "width": 1448,
+   "height": 1086
+  },
+  {
    "url": "/assets/img/prog-livelihoods.webp",
    "filename": "prog-livelihoods.webp",
    "alt": "SOS Foundation activity: Livelihoods.",
    "width": 1024,
    "height": 572
-  },
-  {
-   "url": "/assets/img/prog-rights.webp",
-   "filename": "prog-rights.webp",
-   "alt": "SOS Foundation activity: Human Rights.",
-   "width": 1024,
-   "height": 461
   },
   {
    "url": "/assets/img/prog-wash.webp",

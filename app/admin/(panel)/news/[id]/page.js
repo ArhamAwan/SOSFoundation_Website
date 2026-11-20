@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { requireUser } from '@/lib/auth';
 import { NEWS_CATEGORIES, PROGRAMMES, getItem, isPreview, mediaMap } from '@/lib/content';
-import { Field, Flash, Head, Select } from '@/app/admin/_ui';
+import { Check, Field, Flash, Head, Select } from '@/app/admin/_ui';
 import { CountedText, ImagePicker, UnsavedGuard } from '@/app/admin/_ui/client';
 import { PublishBox } from '@/app/admin/_ui/lists';
 import { saveItem } from '@/app/admin/actions';
@@ -52,6 +52,10 @@ export default async function NewsEditor({ params, searchParams }) {
         </div>
         <div className="side">
           <PublishBox item={item} media={media} preview={preview} isAdmin={user.isAdmin} />
+          <section className="panel">
+            <h2>Home page</h2>
+            <Check name="home" label="Show on the Home page" on={d.home} note="The Home page shows three posts: ticked ones first, then the newest. The first one is shown large." />
+          </section>
           <section className="panel">
             <h2>Featured photo</h2>
             <ImagePicker name="image" media={library} value={d.image} />

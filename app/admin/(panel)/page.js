@@ -10,7 +10,7 @@ import { setPreviewMode } from '@/app/admin/actions';
 export default async function Dashboard({ searchParams }) {
   const user = await requireUser();
   const params = await searchParams;
-  const [news, stories, media, preview, [{ n: users }]] = await Promise.all([listItems('news'), listItems('story'), mediaMap(), isPreview(), q('SELECT count(*)::int AS n FROM users WHERE active')]);
+  const [news, stories, media, preview, [{ n: users }], [{ n: newSubs }]] = await Promise.all([listItems('news'), listItems('story'), mediaMap(), isPreview(), q('SELECT count(*)::int AS n FROM users WHERE active'), q(`SELECT count(*)::int AS n FROM submissions WHERE status = 'new'`)]);
   const photos = [...media.values()];
   const count = (items, test) => items.filter(test).length;
   const has = (item, word) => issuesOf(item, media).some((i) => i.includes(word));
@@ -25,6 +25,7 @@ export default async function Dashboard({ searchParams }) {
   ].filter(([n]) => n > 0);
 
   const tiles = [
+    [newSubs, 'New form submissions', '/admin/submissions'],
     [seed.counts.programmes, 'Programmes', '/admin/programmes'], [news.length, 'News and events', '/admin/news'], [0, 'Blog posts', '/admin/blog'],
     [stories.length, 'Success stories', '/admin/success-stories'], [0, 'Reports', '/admin/reports'], [seed.counts.albums, 'Gallery albums', '/admin/gallery'],
     [seed.counts.partners, 'Partners', '/admin/partners'], [photos.length, 'Photos in library', '/admin/media'], ...(user.isAdmin ? [[users, 'Users', '/admin/users']] : []),

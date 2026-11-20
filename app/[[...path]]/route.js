@@ -11,12 +11,15 @@ const html = (body, status = 200, cache = 'no-store') =>
 const PREVIEW_NOTE =
   '<div role="note" style="margin: 0 0 20px; padding: 12px 16px; border: 1px solid #e0b100; border-left-width: 6px; border-radius: 4px; background: #fff8db; color: #373b73; font-size: 15px; line-height: 1.5">' +
   '<strong>Design preview.</strong> This section is not connected to the database yet, so nothing on this screen saves. ' +
-  'News and Events, Success Stories, Media library and Users are working.</div>';
+  'News and Events, Success Stories, Form submissions, Media library and Users are working.</div>';
 
 const PREVIEW_OF = { 'admin/pages/1': '/about-us', 'admin/programmes/1': '/programmes/education-for-all', 'admin/blog/1': '/blog' };
 
-// Layouts that are not real pages yet: the blog post layout has no posts, and the thank-you page waits for the forms to be connected.
-const NOT_PUBLIC = new Set(['blog/post-template', 'thank-you']);
+// Layouts that are not real pages yet: the blog post layout has no posts.
+const NOT_PUBLIC = new Set(['blog/post-template']);
+
+// Old addresses that moved (20 Nov 2026: Leadership became three pages).
+const MOVED = { 'about-us/leadership': '/about-us/board-of-trustees' };
 
 async function adminPreview(path, request) {
   const user = await getUser();
@@ -43,6 +46,7 @@ export async function GET(request, { params }) {
   const path = parts.join('/');
   const origin = new URL(request.url).origin;
   const notFound = () => html(staticPage('404').replaceAll('@@ORIGIN@@', origin), 404);
+  if (MOVED[path]) return new Response(null, { status: 308, headers: { location: MOVED[path] } });
   if (!/^[a-z0-9\-/]*$/.test(path) || NOT_PUBLIC.has(path)) return notFound();
   try {
     let page = null;

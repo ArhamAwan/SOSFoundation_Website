@@ -50,7 +50,7 @@ export async function saveItem(form) {
     type === 'news'
       ? { date: /^\d{4}-\d{2}-\d{2}$/.test(text(form, 'date')) ? text(form, 'date') : null, location: text(form, 'location'), category: text(form, 'category'),
           programme: text(form, 'programme'), partners: text(form, 'partners'), body: text(form, 'body'), image, caption: text(form, 'caption'),
-          gallery: form.getAll('gallery').map(Number).filter(Boolean), meta_description: text(form, 'meta_description') }
+          gallery: form.getAll('gallery').map(Number).filter(Boolean), meta_description: text(form, 'meta_description'), home: form.get('home') === 'on' }
       : { programme: text(form, 'programme'), focus: text(form, 'focus'), location: text(form, 'location'), partners: text(form, 'partners'), body: text(form, 'body'),
           image, layout: text(form, 'layout') === 'landscape' ? 'landscape' : 'portrait', featured: form.get('featured') === 'on', consent_confirmed: form.get('consent_confirmed') === 'on' };
 
@@ -170,4 +170,50 @@ export async function setPreviewMode(form) {
   const preview = text(form, 'mode') === 'preview';
   await setSetting('preview_mode', preview);
   go('/admin', 'ok', preview ? 'Preview mode is on: published items show even when something is missing.' : 'Live mode is on: items with open issues are hidden from the website.');
+}
+
+// ---------------------------------------------------------------- form submissions
+const STATUSES = ['new', 'in progress', 'closed'];
+
+export async function updateSubmission(form) {
+  await requireUser();
+  const id = Number(form.get('id')) || 0;
+  const status = STATUSES.includes(text(form, 'status')) ? text(form, 'status') : 'new';
+  await q('UPDATE submissions SET status = $1, note = $2 WHERE id = $3', [status, text(form, 'note').slice(0, 5000), id]);
+  go(`/admin/submissions?id=${id}`, 'ok', 'Saved.');
+}
+
+export async function deleteSubmission(form) {
+  await requireAdmin();
+  await q('DELETE FROM submissions WHERE id = $1', [Number(form.get('id')) || 0]);
+  go('/admin/submissions', 'ok', 'Submission deleted.');
+}
+
+export async function saveSheetUrl(form) {
+  await requireAdmin();
+  const url = text(form, 'sheet_url');
+  if (url && !/^https:\/\/script\.google(usercontent)?\.com\/.+/.test(url)) go('/admin/submissions', 'error', 'That is not a Google Apps Script web app address. It starts with https://script.google.com/macros/s/ and ends with /exec.');
+  await setSetting('sheet_url', url);
+  go('/admin/submissions', 'ok', url ? 'Google Sheet address saved. Use "Send a test row" to check it.' : 'Google Sheet disconnected. Submissions are kept on this website only.');
+}
+
+export async function testSheet() {
+  await requireAdmin();
+  const { sheetUrl, postRow } = await import('@/lib/sheets');
+  const url = await sheetUrl();
+  if (!url) go('/admin/submissions', 'error', 'Save the Google Sheet web app address first.');
+  const ok = await postRow(url, { form: 'Test', page: '/admin/submissions', received: new Date().toISOString(), id: 0, fields: { Message: 'Test row from the website admin panel. You can delete this tab.' } });
+  go('/admin/submissions', ok ? 'ok' : 'error', ok ? 'The test row arrived: look for a tab called "Test" in the Google Sheet.' : 'The Google Sheet did not answer. Check the address, and that the web app is deployed with access for "Anyone".');
+}
+
+export async function resendToSheet() {
+  await requireAdmin();
+  const { sheetUrl, sendSubmission } = await import('@/lib/sheets');
+  const url = await sheetUrl();
+  if (!url) go('/admin/submissions', 'error', 'Save the Google Sheet web app address first.');
+  const rows = await q(`SELECT id, form, page, data, created_at FROM submissions WHERE sheet <> 'sent' ORDER BY id LIMIT 100`);
+  let sent = 0;
+  for (const row of rows) if (await sendSubmission(row, url)) sent++;
+  const left = rows.length - sent;
+  go('/admin/submissions', left ? 'error' : 'ok', rows.length === 0 ? 'Every submission is already in the Google Sheet.' : `${sent} of ${rows.length} sent to the Google Sheet.${left ? ' The rest did not arrive; try again later.' : ''}`);
 }

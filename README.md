@@ -10,13 +10,17 @@ The public website and its admin panel in one Next.js project.
 - **News and Events** and **Success Stories**: add, edit, publish, unpublish and delete. The public pages
   `/news-and-events` and `/our-impact/success-stories` (and each post and story page) are built from the database.
 - **Media library**: upload photos (resized and converted to WebP in the browser), alt text, credit, consent, focal point.
+- **Website forms** (Volunteer, Partnership / Corporate CSR, Ambassador, Contact, Newsletter): each entry is saved and
+  listed under **Form submissions** (`/admin/submissions`), with status, private note, reply by email and CSV export.
+  Entries are also copied to a Google Sheet once one is connected; see [docs/google-sheet-setup.md](docs/google-sheet-setup.md).
+- **Home page news**: tick "Show on the Home page" on a news post to put it in the Home page news section.
 - **Dashboard**: live counts and a "needs attention" list worked out from the content.
 - **Preview / Live switch**: in Preview everything published is shown. In Live, posts and stories that do not meet the
   brief's rules (date, meta description, consent, alt text) and photos of people without recorded consent are hidden.
 
 ## Not connected yet
 
-Pages, Programmes, Blog, Reports, Gallery, Partners, Leadership, Form submissions and Site settings open as design
+Pages, Programmes, Blog, Reports, Gallery, Partners, Board and messages, and Site settings open as design
 previews with a yellow notice: they show the approved design but do not save. The other public pages (Home, About,
 Programmes and so on) are served exactly as designed and are not editable yet. Two-factor sign-in and password-reset
 emails are also still to come.

@@ -27,7 +27,7 @@ export default async function NewsList({ searchParams }) {
                 <tr key={item.id}>
                   <td><div className="cell">
                     {photo ? <img className="thumb" src={photo.url} alt="" style={{ objectPosition: photo.pos }} /> : <span className="thumb empty" />}
-                    <div><Link href={`/admin/news/${item.id}`}>{item.title}</Link>{st.issues.length ? <span className="small" style={{ display: 'block', color: '#b3161b' }}>{st.issues.join(' · ')}</span> : null}</div>
+                    <div><Link href={`/admin/news/${item.id}`}>{item.title}</Link>{item.data.home ? <> <Badge kind="info">On Home page</Badge></> : null}{st.issues.length ? <span className="small" style={{ display: 'block', color: '#b3161b' }}>{st.issues.join(' · ')}</span> : null}</div>
                   </div></td>
                   <td>{item.data.category || <span className="muted">None</span>}</td>
                   <td style={{ whiteSpace: 'nowrap' }}>{formatDate(item.data.date) || <span className="muted">No date</span>}</td>
