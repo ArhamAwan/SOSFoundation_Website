@@ -184,13 +184,16 @@ const STATUSES = ['new', 'in progress', 'closed'];
 export async function updateSubmission(form) {
   await requireUser();
   const id = Number(form.get('id')) || 0;
-  const status = STATUSES.includes(text(form, 'status')) ? text(form, 'status') : 'new';
+  const given = text(form, 'status') === 'progress' ? 'in progress' : text(form, 'status'); // the status buttons send "progress"
+  const status = STATUSES.includes(given) ? given : 'new';
   await q('UPDATE submissions SET status = $1, note = $2 WHERE id = $3', [status, text(form, 'note').slice(0, 5000), id]);
-  go(`/admin/submissions?id=${id}`, 'ok', 'Saved.');
+  const back = String(form.get('back') || '').replace(/[^\w=&%.+\-]/g, ''); // keeps the list's filters
+  go(`/admin/submissions?${back ? back + '&' : ''}id=${id}`, 'ok', 'Saved.');
 }
 
 export async function deleteSubmission(form) {
   await requireAdmin();
   await q('DELETE FROM submissions WHERE id = $1', [Number(form.get('id')) || 0]);
-  go('/admin/submissions', 'ok', 'Lead deleted.');
+  const back = String(form.get('back') || '').replace(/[^\w=&%.+\-]/g, '');
+  go(`/admin/submissions${back ? '?' + back : ''}`, 'ok', 'Lead deleted.');
 }
