@@ -63,7 +63,24 @@ database, copy `.env.example` to `.env.local` and fill in `DATABASE_URL`.
 | `lib/generated/` | Pages, templates and starting content exported from the approved designs. Do not edit by hand. |
 | `public/assets/` | Images and the font. |
 
-## Moving to other hosting later
+## Hosting
 
-The site needs Node.js and a Postgres database, nothing specific to Vercel. Point `DATABASE_URL` at the new database
-and run `npm run build` then `npm start`. Uploaded photos live in the database, so they move with it.
+The site needs Node.js 20 or later and a database: Postgres (Vercel + Neon) or MySQL / MariaDB (cPanel hosting).
+`DATABASE_URL` picks the database: `postgres://…` or `mysql://user:password@localhost/database`.
+Uploaded photos live in the database, so they move with it.
+
+### The live site on cPanel (sosfoundation.org.pk)
+
+The live site runs on the client's cPanel hosting with cPanel's Application Manager (Phusion Passenger, Node.js 22)
+and a MariaDB database (`sosfound_site`). The host has no terminal, so a self-contained build is uploaded:
+
+1. Build: `STANDALONE=1 npm run build`, then copy `.next/static` to `.next/standalone/.next/static`,
+   `public` to `.next/standalone/public`, and add `app.js` containing `require('./server.js');` (Passenger's start file).
+2. Zip the contents of `.next/standalone` and upload it in cPanel File Manager, then extract it over `/home/sosfound/sosf-site`.
+3. In Application Manager, restart the app (or edit and save it).
+
+The app's `DATABASE_URL` and `SITE_URL` are set on the application in Application Manager, not in a file.
+The domain's folder (`public_html`) still holds the old WordPress site, which the app replaces while it is registered.
+Its `.htaccess` must start with `RewriteEngine Off`; otherwise WordPress's rewrite rules break every page except Home.
+
+Only `sosfoundation.org.pk` is open to search engines. Every other address (the Vercel demo, staging) sends `noindex`.

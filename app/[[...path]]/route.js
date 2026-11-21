@@ -1,7 +1,7 @@
 // Every public page, and the admin sections that are still design previews, are served from here.
 import { getUser } from '@/lib/auth';
 import { DatabaseNotConfigured } from '@/lib/db';
-import { esc, homePage, newsListPage, newsPostPage, staticPage, storiesListPage, storyPage } from '@/lib/public';
+import { esc, homePage, newsListPage, newsPostPage, originOf, publicCopy, staticPage, storiesListPage, storyPage } from '@/lib/public';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,7 +23,7 @@ const MOVED = { 'about-us/leadership': '/about-us/board-of-trustees' };
 
 async function adminPreview(path, request) {
   const user = await getUser();
-  if (!user) return Response.redirect(new URL('/admin/login', request.url), 303);
+  if (!user) return new Response(null, { status: 303, headers: { location: '/admin/login' } });
   if (user.leadsOnly) return new Response(null, { status: 303, headers: { location: '/leads' } });
   let page = staticPage(path);
   if (!page) return null;
@@ -45,8 +45,9 @@ async function adminPreview(path, request) {
 export async function GET(request, { params }) {
   const { path: parts = [] } = await params;
   const path = parts.join('/');
-  const origin = new URL(request.url).origin;
-  const notFound = () => html(staticPage('404').replaceAll('@@ORIGIN@@', origin), 404);
+  const origin = originOf(request);
+  const finish = (page) => publicCopy(page.replaceAll('@@ORIGIN@@', origin), origin);
+  const notFound = () => html(finish(staticPage('404')), 404);
   if (MOVED[path]) return new Response(null, { status: 308, headers: { location: MOVED[path] } });
   if (!/^[a-z0-9\-/]*$/.test(path) || NOT_PUBLIC.has(path)) return notFound();
   try {
@@ -60,7 +61,7 @@ export async function GET(request, { params }) {
     else page = staticPage(path);
     if (page instanceof Response) return page;
     if (typeof page === 'string') {
-      page = page.replaceAll('@@ORIGIN@@', origin);
+      page = finish(page);
       const fromDatabase = path === '' || path.startsWith('news-and-events') || path.startsWith('our-impact/success-stories');
       // Fixed pages can sit on Vercel's network for an hour; database pages are always fresh so edits show up at once.
       const cache = path.startsWith('admin') ? 'no-store' : fromDatabase ? 'public, max-age=0, must-revalidate' : 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400';
@@ -71,7 +72,7 @@ export async function GET(request, { params }) {
     if (err instanceof DatabaseNotConfigured) {
       // No database yet: show the page as it was designed, so the public site never breaks.
       const fallback = path.startsWith('admin') ? null : staticPage(path);
-      if (fallback) return html(fallback.replaceAll('@@ORIGIN@@', origin));
+      if (fallback) return html(finish(fallback));
       return html('<!doctype html><meta charset="utf-8"><title>Database not connected</title><body style="font-family: system-ui, sans-serif; max-width: 640px; margin: 80px auto; padding: 0 20px; line-height: 1.6; color: #373b73">' +
         '<h1>Database not connected</h1><p>This page reads from the database. In Vercel, open the project, go to Storage, create a Neon Postgres database and connect it to this project, then redeploy.</p></body>', 503);
     }

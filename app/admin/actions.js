@@ -68,11 +68,13 @@ export async function saveItem(form) {
 
   let saved;
   if (existing) {
-    [saved] = await q(`UPDATE items SET slug = $1, title = $2, status = $3, data = $4::text::jsonb, updated_at = now(), updated_by = $5 WHERE id = $6 RETURNING id`,
+    await q(`UPDATE items SET slug = $1, title = $2, status = $3, data = $4::text::jsonb, updated_at = now(), updated_by = $5 WHERE id = $6`,
       [slug, title, status, JSON.stringify(data), user.id, existing.id]);
+    saved = { id: existing.id };
   } else {
-    [saved] = await q(`INSERT INTO items (type, slug, title, status, data, updated_by, sort) VALUES ($1, $2, $3, $4, $5::text::jsonb, $6, (SELECT coalesce(max(sort), 0) + 1 FROM items WHERE type = $1)) RETURNING id`,
-      [type, slug, title, status, JSON.stringify(data), user.id]);
+    const [{ next }] = await q('SELECT coalesce(max(sort), 0) + 1 AS next FROM items WHERE type = $1', [type]);
+    [saved] = await q(`INSERT INTO items (type, slug, title, status, data, updated_by, sort) VALUES ($1, $2, $3, $4, $5::text::jsonb, $6, $7) RETURNING id`,
+      [type, slug, title, status, JSON.stringify(data), user.id, Number(next) || 1]);
   }
   const there = `${def.admin}/${saved.id}`;
   // A Home page position belongs to one post: giving it to this post takes it from any other.

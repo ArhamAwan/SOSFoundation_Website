@@ -4,3 +4,6 @@ node_modules
 .env*
 !.env.example
 .vercel
+
+# cPanel upload packages (large, built from this code)
+deploy/

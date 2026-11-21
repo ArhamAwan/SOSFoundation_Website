@@ -12,7 +12,7 @@ const cell = (v) => {
 
 export async function GET(request) {
   const user = await getUser();
-  if (!user) return Response.redirect(new URL('/admin/login', request.url), 303);
+  if (!user) return new Response(null, { status: 303, headers: { location: '/admin/login' } });
   if (user.leadsOnly) return new Response(null, { status: 303, headers: { location: '/leads' } });
   const sp = new URL(request.url).searchParams;
   const form = sp.get('form') || '';

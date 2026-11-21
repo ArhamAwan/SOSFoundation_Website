@@ -5,5 +5,5 @@ export async function GET(request) {
   const purpose = (request.headers.get('sec-purpose') || request.headers.get('purpose') || '').toLowerCase();
   if (purpose.includes('prefetch') || purpose.includes('prerender')) return new Response(null, { status: 204 });
   await destroySession();
-  return Response.redirect(new URL('/admin/login', request.url), 303);
+  return new Response(null, { status: 303, headers: { location: '/admin/login' } });
 }
