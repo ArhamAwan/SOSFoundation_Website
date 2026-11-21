@@ -33,6 +33,7 @@ export default async function Submissions({ searchParams }) {
   return (
     <>
       <Head title="Leads" sub="Everyone who filled in a form on the website: volunteers, youth and brand ambassadors, partners and corporate CSR, contact messages and newsletter sign-ups.">
+        <a className="btn plain" href="/leads" target="_blank" rel="noreferrer">Open the Leads portal</a>
         <a className="btn plain" href={'/admin/submissions/export' + (keep('') ? '?' + keep('') : '')}><Icon name="Download" />Export CSV</a>
       </Head>
       <Flash params={params} />

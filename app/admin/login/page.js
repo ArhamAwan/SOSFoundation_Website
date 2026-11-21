@@ -8,7 +8,8 @@ export const metadata = { title: 'Sign in | SOS Foundation admin' };
 export default async function LoginPage({ searchParams }) {
   const params = await searchParams;
   if ((await countUsers()) === 0) redirect('/admin/setup');
-  if (await getUser()) redirect('/admin');
+  const user = await getUser();
+  if (user) redirect(user.leadsOnly ? '/leads' : '/admin');
   return (
     <div className="auth">
       <div className="card">

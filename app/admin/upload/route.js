@@ -8,6 +8,7 @@ const TYPES = { 'image/webp': 'webp', 'image/jpeg': 'jpg', 'image/png': 'png' };
 export async function POST(request) {
   const user = await getUser();
   if (!user) return Response.json({ error: 'Your session has ended. Sign in again.' }, { status: 401 });
+  if (user.leadsOnly) return Response.json({ error: 'Not allowed.' }, { status: 403 });
   // Only accept uploads sent from this site's own pages.
   const origin = request.headers.get('origin');
   if (origin && new URL(origin).host !== request.headers.get('host')) return Response.json({ error: 'Not allowed.' }, { status: 403 });

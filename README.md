@@ -12,6 +12,10 @@ The public website and its admin panel in one Next.js project.
 - **Media library**: upload photos (resized and converted to WebP in the browser), alt text, credit, consent, focal point.
 - **Website forms** (Volunteer, Youth and Brand Ambassador, Partnership, Corporate CSR, Contact, Newsletter): each entry
   is saved as a lead under **Leads** (`/admin/submissions`), with search, status, private note, reply by email and CSV export.
+- **Leads portal** (`/leads`, sign in at `/leads/login`): a separate page for the people who follow up enquiries, in the
+  website's own look. Give someone the **Leads only** role under Admin → Users: they can sign in to `/leads` (read leads,
+  set status, add notes, email / call / WhatsApp, export CSV, change their password) and are never let into `/admin`.
+  Admins and editors can use the portal too. The admin's own Leads section stays.
 - **Home page news**: give a news post a "Position on the Home page" (1 to 3; 1 is shown large).
 - **Dashboard**: live counts and a "needs attention" list worked out from the content.
 - **Preview / Live switch**: in Preview everything published is shown. In Live, posts and stories that do not meet the

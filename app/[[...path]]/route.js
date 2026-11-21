@@ -24,6 +24,7 @@ const MOVED = { 'about-us/leadership': '/about-us/board-of-trustees' };
 async function adminPreview(path, request) {
   const user = await getUser();
   if (!user) return Response.redirect(new URL('/admin/login', request.url), 303);
+  if (user.leadsOnly) return new Response(null, { status: 303, headers: { location: '/leads' } });
   let page = staticPage(path);
   if (!page) return null;
   // Show who is signed in, make Sign out work, and say plainly that this screen is a preview.

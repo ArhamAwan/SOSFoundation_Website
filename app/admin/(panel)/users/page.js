@@ -6,9 +6,12 @@ import { ConfirmButton } from '@/app/admin/_ui/client';
 import { createUser, deleteUser, updateUser } from '@/app/admin/actions';
 
 const PERMISSIONS = [
-  ['Add and edit content', true, true], ['Publish and unpublish', true, true], ['Upload and edit photos', true, true],
-  ['Delete content or photos', true, false], ['Switch the website between preview and live', true, false], ['Manage users', true, false],
+  ['Sign in to the admin panel', true, true, false], ['Add and edit content', true, true, false], ['Publish and unpublish', true, true, false], ['Upload and edit photos', true, true, false],
+  ['Use the Leads portal (/leads): read leads, set status, add notes, export', true, true, true], ['Delete content, photos or leads', true, false, false],
+  ['Switch the website between preview and live', true, false, false], ['Manage users', true, false, false],
 ];
+const ROLE = { admin: ['info', 'Admin'], editor: ['draft', 'Editor'], leads: ['ok', 'Leads only'] };
+const ROLE_OPTIONS = <><option value="editor">Editor</option><option value="admin">Admin</option><option value="leads">Leads only (Leads portal, no admin)</option></>;
 const when = (d) => (d ? new Date(d).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Karachi' }) : 'Never');
 
 export default async function Users({ searchParams }) {
@@ -30,7 +33,7 @@ export default async function Users({ searchParams }) {
                   <tr key={u.id}>
                     <td style={{ fontWeight: 700 }}>{u.name}{u.id === me.id ? <span className="muted" style={{ fontWeight: 400 }}> (you)</span> : null}</td>
                     <td>{u.email}</td>
-                    <td><Badge kind={u.role === 'admin' ? 'info' : 'draft'}>{u.role === 'admin' ? 'Admin' : 'Editor'}</Badge></td>
+                    <td><Badge kind={(ROLE[u.role] || ROLE.editor)[0]}>{(ROLE[u.role] || ROLE.editor)[1]}</Badge></td>
                     <td>{u.active ? <Badge>Active</Badge> : <Badge kind="warn">Turned off</Badge>}</td>
                     <td style={{ whiteSpace: 'nowrap' }}>{when(u.last_login_at)}</td>
                     <td><div className="acts">
@@ -49,8 +52,8 @@ export default async function Users({ searchParams }) {
           <section className="panel" style={{ marginTop: 16 }}>
             <h2>What each role can do</h2>
             <table className="tbl" style={{ minWidth: 0 }}>
-              <thead><tr><th scope="col">Permission</th><th scope="col">Admin</th><th scope="col">Editor</th></tr></thead>
-              <tbody>{PERMISSIONS.map(([label, admin, editor]) => <tr key={label}><td>{label}</td><td>{admin ? 'Yes' : 'No'}</td><td>{editor ? 'Yes' : 'No'}</td></tr>)}</tbody>
+              <thead><tr><th scope="col">Permission</th><th scope="col">Admin</th><th scope="col">Editor</th><th scope="col">Leads only</th></tr></thead>
+              <tbody>{PERMISSIONS.map(([label, ...can]) => <tr key={label}><td>{label}</td>{can.map((c, i) => <td key={i}>{c ? 'Yes' : 'No'}</td>)}</tr>)}</tbody>
             </table>
           </section>
         </div>
@@ -61,7 +64,7 @@ export default async function Users({ searchParams }) {
               <input type="hidden" name="id" value={editing.id} />
               <div className="fgrid">
                 <Field label="Name" id="name" wide><input className="ctl" id="name" name="name" defaultValue={editing.name} required /></Field>
-                <Field label="Role" id="role" wide><select className="ctl" id="role" name="role" defaultValue={editing.role}><option value="editor">Editor</option><option value="admin">Admin</option></select></Field>
+                <Field label="Role" id="role" wide><select className="ctl" id="role" name="role" defaultValue={editing.role}>{ROLE_OPTIONS}</select></Field>
                 <Field label="Set a new password" id="password" wide help={`Leave empty to keep the current one. At least ${MIN_PASSWORD} characters. They are signed out everywhere.`}><input className="ctl" id="password" name="password" type="password" autoComplete="new-password" /></Field>
               </div>
               <Check name="active" label="Can sign in" note="Untick to turn the account off without deleting it." on={editing.active} />
@@ -73,7 +76,7 @@ export default async function Users({ searchParams }) {
               <div className="fgrid">
                 <Field label="Name" id="name" wide><input className="ctl" id="name" name="name" required /></Field>
                 <Field label="Email" id="email" wide><input className="ctl" id="email" name="email" type="email" required /></Field>
-                <Field label="Role" id="role" wide><select className="ctl" id="role" name="role" defaultValue="editor"><option value="editor">Editor</option><option value="admin">Admin</option></select></Field>
+                <Field label="Role" id="role" wide><select className="ctl" id="role" name="role" defaultValue="editor">{ROLE_OPTIONS}</select></Field>
                 <Field label="First password" id="password" wide help={`At least ${MIN_PASSWORD} characters. Share it privately; they can change it after signing in.`}><input className="ctl" id="password" name="password" type="password" autoComplete="new-password" minLength={MIN_PASSWORD} required /></Field>
               </div>
               <p style={{ marginTop: 16 }}><button className="btn" type="submit"><Icon name="plus" />Add user</button></p>

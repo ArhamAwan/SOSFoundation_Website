@@ -16,7 +16,7 @@ export async function login(form) {
   const result = await checkLogin(email, form.get('password'));
   if (result.error) redirect(`/admin/login?error=${encodeURIComponent(result.error)}&email=${encodeURIComponent(email)}`);
   await createSession(result.user.id, form.get('remember') === 'on');
-  redirect('/admin');
+  redirect(result.user.role === 'leads' ? '/leads' : '/admin');
 }
 
 /** First run only: creates the first admin account. Closed for good once any user exists. */
@@ -115,13 +115,13 @@ export async function createUser(form) {
   const name = text(form, 'name');
   const email = text(form, 'email').toLowerCase();
   const password = String(form.get('password') ?? '');
-  const role = text(form, 'role') === 'admin' ? 'admin' : 'editor';
+  const role = ['admin', 'editor', 'leads'].includes(text(form, 'role')) ? text(form, 'role') : 'editor';
   if (!name || !validEmail(email)) go('/admin/users', 'error', 'Enter a name and a valid email address.');
   if (password.length < MIN_PASSWORD) go('/admin/users', 'error', `The first password needs at least ${MIN_PASSWORD} characters.`);
   const taken = await q('SELECT id FROM users WHERE email = $1', [email]);
   if (taken.length) go('/admin/users', 'error', 'A user with that email already exists.');
   await q('INSERT INTO users (name, email, password_hash, role) VALUES ($1, $2, $3, $4)', [name, email, await hashPassword(password), role]);
-  go('/admin/users', 'ok', `${name} can now sign in. Share the password with them privately; they can change it under their name at the top right.`);
+  go('/admin/users', 'ok', role === 'leads' ? `${name} can now sign in to the Leads portal at /leads. Share the password with them privately; they can change it there.` : `${name} can now sign in. Share the password with them privately; they can change it under their name at the top right.`);
 }
 
 export async function updateUser(form) {
@@ -129,7 +129,7 @@ export async function updateUser(form) {
   const id = Number(form.get('id')) || 0;
   const here = `/admin/users?edit=${id}`;
   const name = text(form, 'name');
-  const role = text(form, 'role') === 'admin' ? 'admin' : 'editor';
+  const role = ['admin', 'editor', 'leads'].includes(text(form, 'role')) ? text(form, 'role') : 'editor';
   const active = form.get('active') === 'on';
   const password = String(form.get('password') ?? '');
   if (!name) go(here, 'error', 'Enter a name.');
