@@ -7,3 +7,4 @@ node_modules
 
 # cPanel upload packages (large, built from this code)
 deploy/
+*.zip
