@@ -160,3 +160,20 @@ dialog.picker::backdrop { background: rgba(31, 33, 71, 0.55); }
 
 /* screen-reader-only labels (Leads search) */
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* list on the left, editor on the right (Partners, Reports and Publications, Gallery) */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 420px); gap: 20px; align-items: start; }
+.split-ed { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; }
+.split-ed > h2 { overflow-wrap: anywhere; }
+.tbl tr[aria-current] td { background: #eef0fa; }
+.thumb.logo { object-fit: contain; background: #fff; border: 1px solid var(--line); padding: 2px; box-sizing: border-box; }
+.filechip { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; overflow-wrap: anywhere; }
+.filechip a { font-weight: 700; }
+@media (max-width: 1100px) {
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .split-ed { position: static; max-height: none; overflow: visible; }
+  .split.editing .split-ed { order: -1; }
+}
+.split .cell { min-width: 200px; }
+.split .tbl th, .split .tbl td { padding-left: 8px; padding-right: 8px; }
+.split .tbl td:first-child, .split .tbl th:first-child { padding-left: 12px; }
+@media (min-width: 1101px) { .split { grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); } }

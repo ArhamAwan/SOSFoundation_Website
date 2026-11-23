@@ -16,6 +16,22 @@ The public website and its admin panel in one Next.js project.
   website's own look. Give someone the **Leads only** role under Admin → Users: they can sign in to `/leads` (read leads,
   set status, add notes, email / call / WhatsApp, export CSV, change their password) and are never let into `/admin`.
   Admins and editors can use the portal too. The admin's own Leads section stays.
+- **Pages, Programmes, Board and messages** (`/admin/pages`, `/admin/programmes`, `/admin/leadership`): every fixed
+  page's headings, paragraphs, list items and photos (with alt text), plus its search title and meta description. Text takes
+  light formatting: `**bold**`, `*italic*`, `[link](https://…)` and new lines. "Undo my change" brings back the original.
+  Edits are stored in the `settings` table as `page:<path>` and applied when the page is served (`lib/overrides.js`).
+- **Site settings** (`/admin/settings`): the footer's intro text, address, phone, email and social links, on every page.
+- **Blog** (`/admin/blog`): posts with author, date, category, programme, body, featured photo and meta description, at
+  `/blog/<slug>`. A post can instead open another page (the three success stories on the Blog page do this).
+- **Partners** (`/admin/partners`): name, category, website link, logo, MoU badge and order. They fill the Partnerships page
+  and the two logo strips on the Home page ("SOS Group of Companies" is the second strip).
+- **Reports and Publications** (`/admin/reports`): title, type, year, description, PDF and optional cover, offered for
+  download on `/reports-and-publications`.
+- **Gallery** (`/admin/gallery`): photo albums (cover and photos, each album has its own page at `/media-gallery/<slug>`),
+  YouTube videos, campaign materials (PDF/JPG/PNG downloads) and press clippings grouped by event.
+- **Documents** (report PDFs, campaign materials) are stored in the database in 3 MB parts (`files`, `file_parts`); the
+  browser uploads them part by part to `/admin/files`, so the host's upload and packet limits are never reached (25 MB
+  per file). They are served from `/files/<id>/<name>`.
 - **Home page news**: give a news post a "Position on the Home page" (1 to 3; 1 is shown large).
 - **Dashboard**: live counts and a "needs attention" list worked out from the content.
 - **Preview / Live switch**: in Preview everything published is shown. In Live, posts and stories that do not meet the
@@ -23,10 +39,13 @@ The public website and its admin panel in one Next.js project.
 
 ## Not connected yet
 
-Pages, Programmes, Blog, Reports, Gallery, Partners, Board and messages, and Site settings open as design
-previews with a yellow notice: they show the approved design but do not save. The other public pages (Home, About,
-Programmes and so on) are served exactly as designed and are not editable yet. Two-factor sign-in and password-reset
-emails are also still to come.
+Every admin section now saves. Two-factor sign-in and password-reset emails are still to come.
+
+### How page editing works
+`tools/mark_editable.py` (run by the design export) marks each editable element in the exported pages with
+`data-e="<key>"` and lists the fields in `lib/generated/fields.json`. A key comes from the element's original text (or
+photo file), so if a design is re-exported with that text changed, an edit made to the old text no longer applies and the
+new design text shows. Posts and success stories are not in this list; they are edited under News and Success Stories.
 
 ## Put it on Vercel (free plan)
 

@@ -48,7 +48,7 @@ export function RowActions({ item, media, preview, isAdmin }) {
   const def = TYPES[item.type];
   return (
     <div className="acts">
-      {isLive(item, media, preview) ? <a className="iconbtn" href={`${def.public}/${item.slug}`} target="_blank" rel="noreferrer" aria-label="View on website"><Icon name="ext" /></a> : null}
+      {isLive(item, media, preview) ? <a className="iconbtn" href={item.data.link || `${def.public}/${item.slug}`} target="_blank" rel="noreferrer" aria-label="View on website"><Icon name="ext" /></a> : null}
       <Link className="iconbtn" href={`${def.admin}/${item.id}`} aria-label="Edit"><Icon name="edit" /></Link>
       {isAdmin ? (
         <form action={deleteItem}>
@@ -83,7 +83,7 @@ export function PublishBox({ item, media, preview, isAdmin }) {
       {item.id ? (
         <p className="small muted" style={{ marginTop: 14 }}>
           Last edited {new Date(item.updated_at).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Karachi' })}{item.editor ? ` by ${item.editor}` : ''}.
-          {isLive(item, media, preview) ? <> <a href={`${def.public}/${item.slug}`} target="_blank" rel="noreferrer">View on website</a></> : null}
+          {isLive(item, media, preview) ? <> <a href={item.data.link || `${def.public}/${item.slug}`} target="_blank" rel="noreferrer">View on website</a></> : null}
         </p>
       ) : null}
       {isAdmin && item.id ? <p style={{ marginTop: 14 }}><ConfirmButton className="linkbtn" style={{ color: '#b3161b' }} formAction={deleteItem} formNoValidate message={`Delete "${item.title}"? This cannot be undone.`}>Delete this {def.label.toLowerCase()}</ConfirmButton></p> : null}

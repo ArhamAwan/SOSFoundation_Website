@@ -955,6 +955,461 @@
    "height": 667
   }
  ],
+ "partners": [
+  {
+   "name": "National Commission for Human Development (NCHD)",
+   "category": "Government and public institutions",
+   "logo": "/assets/img/p-nchd.webp",
+   "mou": true
+  },
+  {
+   "name": "Basic Education Community Schools (BECS), Ministry of Federal Education and Professional Training",
+   "category": "Government and public institutions",
+   "logo": "/assets/img/p-becs.webp",
+   "mou": true
+  },
+  {
+   "name": "Pakistan Meteorological Department (PMD)",
+   "category": "Government and public institutions",
+   "logo": "/assets/img/p-pmd.webp",
+   "mou": false
+  },
+  {
+   "name": "Anti-Narcotics Force (ANF)",
+   "category": "Government and public institutions",
+   "logo": "/assets/img/p-anf.webp",
+   "mou": false
+  },
+  {
+   "name": "Fatima Jinnah Women University (FJWU)",
+   "category": "Universities",
+   "logo": "/assets/img/p-fjwu.webp",
+   "mou": false
+  },
+  {
+   "name": "Rawalpindi Women University (RWU)",
+   "category": "Universities",
+   "logo": "/assets/img/p-rwu.webp",
+   "mou": true
+  },
+  {
+   "name": "Quaid-i-Azam University (QAU)",
+   "category": "Universities",
+   "logo": "/assets/img/p-qau.webp",
+   "mou": false
+  },
+  {
+   "name": "Government College University Lahore (GCU)",
+   "category": "Universities",
+   "logo": "/assets/img/p-gcu.webp",
+   "mou": false
+  },
+  {
+   "name": "National Skills University (NSU)",
+   "category": "Universities",
+   "logo": "/assets/img/p-nsu.webp",
+   "mou": false
+  },
+  {
+   "name": "Lahore College for Women University (LCWU)",
+   "category": "Universities",
+   "logo": "/assets/img/p-lcwu.webp",
+   "mou": false
+  },
+  {
+   "name": "Minhaj University Lahore",
+   "category": "Universities",
+   "logo": "/assets/img/p-minhaj.webp",
+   "mou": false
+  },
+  {
+   "name": "Islamabad Chamber of Commerce and Industry (ICCI)",
+   "category": "Corporate and business",
+   "logo": "/assets/img/p-icci.webp",
+   "mou": true
+  },
+  {
+   "name": "EduTransform",
+   "category": "Corporate and business",
+   "logo": "/assets/img/p-edutransform.webp",
+   "mou": false
+  },
+  {
+   "name": "Saylani Welfare International Trust",
+   "category": "Civil society and welfare",
+   "logo": "/assets/img/p-saylani.webp",
+   "mou": false
+  },
+  {
+   "name": "Parveen Shakir Trust",
+   "category": "Civil society and welfare",
+   "logo": "/assets/img/p-parveen-shakir.webp",
+   "mou": false
+  },
+  {
+   "name": "SOS Pakistan (Pvt.) Ltd.",
+   "category": "SOS Group of Companies",
+   "logo": "/assets/img/p-sos-pakistan.webp",
+   "mou": true
+  },
+  {
+   "name": "SOS Technologies (Pvt.) Ltd.",
+   "category": "SOS Group of Companies",
+   "logo": "/assets/img/p-sos-technologies.webp",
+   "mou": true
+  },
+  {
+   "name": "SOS Energy (Pvt.) Ltd.",
+   "category": "SOS Group of Companies",
+   "logo": "/assets/img/p-sos-energy.webp",
+   "mou": true
+  },
+  {
+   "name": "AB Medicals",
+   "category": "SOS Group of Companies",
+   "logo": "/assets/img/p-ab-medicals.webp",
+   "mou": true
+  },
+  {
+   "name": "SOS Metasoul",
+   "category": "SOS Group of Companies",
+   "logo": "/assets/img/p-sos-metasoul.webp",
+   "mou": false
+  },
+  {
+   "name": "South Air",
+   "category": "SOS Group of Companies",
+   "logo": "/assets/img/p-south-air.webp",
+   "mou": false
+  },
+  {
+   "name": "National University for Security Sciences (NUSS)",
+   "category": "SOS Group of Companies",
+   "logo": "/assets/img/p-nuss.webp",
+   "mou": false
+  }
+ ],
+ "partner_categories": [
+  "Government and public institutions",
+  "Universities",
+  "Corporate and business",
+  "Civil society and welfare",
+  "SOS Group of Companies"
+ ],
+ "albums": [
+  {
+   "title": "21st Century Teaching Skills Workshop",
+   "programme": "Education for All",
+   "image": "/assets/img/a-21c-workshop.webp",
+   "pos": "center"
+  },
+  {
+   "title": "Educational Kit Distribution",
+   "programme": "Education for All",
+   "image": "/assets/img/story1.webp",
+   "pos": "center 32%"
+  },
+  {
+   "title": "Literacy Walks",
+   "programme": "Education for All",
+   "image": "/assets/img/literacy-walk-islamabad.webp",
+   "pos": "center"
+  },
+  {
+   "title": "STEM Awareness Activities",
+   "programme": "Education for All",
+   "image": "/assets/img/a-stem.webp",
+   "pos": "center 40%"
+  },
+  {
+   "title": "Free Medical Camp, Bari Imam",
+   "programme": "Health and Nutrition",
+   "image": "/assets/img/story2.webp",
+   "pos": "center 20%"
+  },
+  {
+   "title": "Wheelchair Donations to PIMS",
+   "programme": "Health and Nutrition",
+   "image": "/assets/img/story7.webp",
+   "pos": "center 60%"
+  },
+  {
+   "title": "Winter Relief Food Drive",
+   "programme": "Humanitarian Response",
+   "image": "/assets/img/a-winter-relief.webp",
+   "pos": "center 40%"
+  },
+  {
+   "title": "World Humanitarian Day",
+   "programme": "Humanitarian Response",
+   "image": "/assets/img/a-humanitarian-day.webp",
+   "pos": "center"
+  },
+  {
+   "title": "Earth Day",
+   "programme": "Climate Change and Community Engagement",
+   "image": "/assets/img/a-earth-day.webp",
+   "pos": "center"
+  },
+  {
+   "title": "Monsoon Plantation Week",
+   "programme": "Climate Change and Community Engagement",
+   "image": "/assets/img/climate-plantation.webp",
+   "pos": "center 30%"
+  },
+  {
+   "title": "Tree Plantation, Muslim Colony",
+   "programme": "Climate Change and Community Engagement",
+   "image": "/assets/img/a-plant-muslim-colony.webp",
+   "pos": "center 45%"
+  },
+  {
+   "title": "World Environment Day",
+   "programme": "Climate Change and Community Engagement",
+   "image": "/assets/img/a-world-env-day.webp",
+   "pos": "center"
+  },
+  {
+   "title": "Vegetarian Day",
+   "programme": "Climate Change and Community Engagement",
+   "image": "/assets/img/a-vegetarian-day.webp",
+   "pos": "center 30%"
+  },
+  {
+   "title": "Tree Plantation, PHA",
+   "programme": "Climate Change and Community Engagement",
+   "image": "/assets/img/a-plant-pha.webp",
+   "pos": "center 55%"
+  },
+  {
+   "title": "Launch of Stitching Classes",
+   "programme": "Women Empowerment",
+   "image": "/assets/img/a-stitching-launch.webp",
+   "pos": "center"
+  },
+  {
+   "title": "Girls' Education and Empowerment",
+   "programme": "Women Empowerment",
+   "image": "/assets/img/a-girls-education.webp",
+   "pos": "center 60%"
+  },
+  {
+   "title": "International Women's Day, RWU",
+   "programme": "Women Empowerment",
+   "image": "/assets/img/a-iwd-rwu.webp",
+   "pos": "center"
+  },
+  {
+   "title": "Stitching Machines for Women",
+   "programme": "Women Empowerment",
+   "image": "/assets/img/a-stitching-machines.webp",
+   "pos": "center 30%"
+  },
+  {
+   "title": "Kitchen Gardening",
+   "programme": "Women Empowerment",
+   "image": "/assets/img/a-kitchen-gardening.webp",
+   "pos": "center 60%"
+  },
+  {
+   "title": "Women's Day, Lok Virsa",
+   "programme": "Women Empowerment",
+   "image": "/assets/img/a-womens-day-lokvirsa.webp",
+   "pos": "center 30%"
+  },
+  {
+   "title": "Stitching Class",
+   "programme": "Women Empowerment",
+   "image": "/assets/img/a-stitching-class.webp",
+   "pos": "center 50%"
+  },
+  {
+   "title": "Rural Women's Day",
+   "programme": "Women Empowerment",
+   "image": "/assets/img/a-rural-women-day.webp",
+   "pos": "center 40%"
+  },
+  {
+   "title": "Economic and Social Development Volunteers",
+   "programme": "Community Development",
+   "image": "/assets/img/a-volunteers.webp",
+   "pos": "center"
+  },
+  {
+   "title": "Water, Sanitation and Hygiene (WASH)",
+   "programme": "Water, Sanitation and Hygiene (WASH)",
+   "image": "/assets/img/story6.webp",
+   "pos": "center 30%"
+  },
+  {
+   "title": "Human Rights Day",
+   "programme": "Human Rights",
+   "image": "/assets/img/a-human-rights-day.webp",
+   "pos": "center"
+  },
+  {
+   "title": "World Youth Skills Day",
+   "programme": "Livelihoods",
+   "image": "/assets/img/a-youth-skills-day.webp",
+   "pos": "center 60%"
+  },
+  {
+   "title": "Youth Livelihood",
+   "programme": "Livelihoods",
+   "image": "/assets/img/a-youth-livelihood.webp",
+   "pos": "center"
+  }
+ ],
+ "coverage": [
+  {
+   "outlet": "Dawn",
+   "image": "/assets/img/cov-1.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "The Express Tribune",
+   "image": "/assets/img/cov-10.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Daily Nawa-i-Waqt",
+   "image": "/assets/img/cov-11.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Daily Nai Baat",
+   "image": "/assets/img/cov-12.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "The Daily 92 News",
+   "image": "/assets/img/cov-13.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Daily Jehan Pakistan",
+   "image": "/assets/img/cov-15.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Parliament Times",
+   "image": "/assets/img/cov-5.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Daily Country News",
+   "image": "/assets/img/cov-4.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Daily Lead Pakistan",
+   "image": "/assets/img/cov-9.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Daily Ghaznavi",
+   "image": "/assets/img/cov-14.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Daily Siachan",
+   "image": "/assets/img/cov-3.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Daily Akhbar Navees",
+   "image": "/assets/img/cov-7.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "News Line (newslinepk.com)",
+   "image": "/assets/img/cov-2.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "apurdu.org",
+   "image": "/assets/img/cov-6.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Independent TV",
+   "image": "/assets/img/cov-8.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  },
+  {
+   "outlet": "Urdu daily",
+   "image": "/assets/img/cov-16.webp",
+   "event": "Literacy Walk on International Literacy Day, 8 September 2026",
+   "date": "2026-09-08"
+  }
+ ],
+ "blog_categories": [
+  [
+   "Programme Stories",
+   "In-depth features on our nine programmes."
+  ],
+  [
+   "Field Notes",
+   "First-hand accounts from team visits, volunteers and interns."
+  ],
+  [
+   "Thought Leadership",
+   "Perspectives from SOS Foundation leadership and guest contributors on social development."
+  ],
+  [
+   "Partnership Spotlights",
+   "Features on the universities, NGOs and government bodies we work with."
+  ],
+  [
+   "Awareness-Day Explainers",
+   "Background articles on observance days such as World Environment Day, Human Rights Day and World Youth Skills Day."
+  ]
+ ],
+ "blog": [
+  {
+   "title": "A Learning Space Where Every Child Belongs",
+   "story": "a-learning-space-where-every-child-belongs",
+   "programme": "Education for All",
+   "category": "Programme Stories",
+   "excerpt": "At ten years old, Ali had never sat in a classroom. In Sohan, on the edge of the federal capital, poverty, distance and the cost of books kept many children like him out of…"
+  },
+  {
+   "title": "Stitching a Path to Self-Reliance",
+   "story": "stitching-a-path-to-self-reliance",
+   "programme": "Women Empowerment",
+   "category": "Programme Stories",
+   "excerpt": "In Muslim Colony, many women had talent and determination but no training, equipment or way to earn. Some were widows raising children alone, some depended on husbands with irregular daily-wage work, and others had…"
+  },
+  {
+   "title": "Clean Water for Mumtazabad",
+   "story": "clean-water-for-mumtazabad",
+   "programme": "Water, Sanitation and Hygiene (WASH)",
+   "category": "Programme Stories",
+   "excerpt": "Nasreen, a mother of three, watched her children fall sick again and again from unsafe water. Like many families in Mumtazabad, she spent hours every day collecting water that was never truly safe to…"
+  }
+ ],
+ "report_types": [
+  "Annual Reports",
+  "Project Reports",
+  "Impact Reports",
+  "Newsletters",
+  "Publications"
+ ],
  "programmes": [
   "Education for All",
   "Health and Nutrition",

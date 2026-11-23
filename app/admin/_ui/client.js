@@ -45,7 +45,7 @@ export function CountedText({ id, name, value = '', min, max, rows = 3 }) {
     <>
       <textarea className="ctl" id={id} name={name || id} rows={rows} defaultValue={value} onChange={(e) => setLength(e.target.value.trim().length)} />
       <span className="help" style={{ color: ok ? '#2c8a26' : undefined, fontWeight: ok ? 700 : undefined }}>
-        {length} characters. The brief asks for {min} to {max}.
+        {length} characters. Aim for {min} to {max}.
       </span>
     </>
   );
@@ -169,7 +169,7 @@ export function ImagePicker({ name, media, value, multiple = false, emptyLabel =
 }
 
 // Sections that are connected to the database. The rest are still design previews and load as ordinary pages.
-const CONNECTED = ['/admin', '/admin/news', '/admin/success-stories', '/admin/media', '/admin/users'];
+const CONNECTED = ['/admin', '/admin/news', '/admin/success-stories', '/admin/media', '/admin/users', '/admin/submissions', '/admin/pages', '/admin/programmes', '/admin/leadership', '/admin/settings', '/admin/blog', '/admin/reports', '/admin/gallery', '/admin/partners'];
 
 /** The left menu. Connected sections switch without reloading the page. */
 export function SideNav({ groups }) {
@@ -188,5 +188,58 @@ export function SideNav({ groups }) {
         }),
       ])}
     </nav>
+  );
+}
+
+/** Upload a document (PDF, or PDF/JPG/PNG) in parts, then keep its id in a hidden form field. */
+export function FileUpload({ name, accept = 'pdf', current }) {
+  const [file, setFile] = useState(current || null);
+  const [state, setState] = useState({ busy: false, message: '', error: false });
+  const input = useRef(null);
+  const types = accept === 'pdf' ? 'application/pdf' : 'application/pdf,image/jpeg,image/png';
+  const size = (n) => (n >= 1048576 ? `${(n / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`);
+
+  async function upload(f) {
+    if (!f) return;
+    setState({ busy: true, message: 'Uploading…', error: false });
+    try {
+      const post = async (q, body, json) => {
+        const r = await fetch('/admin/files?' + q, { method: 'POST', body, headers: json ? { 'content-type': 'application/json' } : { 'content-type': 'application/octet-stream' } });
+        const out = await r.json().catch(() => ({ error: 'The upload stopped. Check the connection and try again.' }));
+        if (!r.ok || out.error) throw new Error(out.error || 'The upload stopped.');
+        return out;
+      };
+      const start = await post('step=start', JSON.stringify({ name: f.name, type: f.type, size: f.size, accept }), true);
+      const parts = Math.ceil(f.size / start.partBytes);
+      for (let n = 0; n < parts; n++) {
+        await post(`step=part&id=${start.id}&n=${n}`, f.slice(n * start.partBytes, (n + 1) * start.partBytes));
+        setState({ busy: true, message: `Uploading… ${Math.round(((n + 1) / parts) * 100)}%`, error: false });
+      }
+      const done = await post(`step=done&id=${start.id}`, '{}', true);
+      setFile({ id: done.id, filename: done.filename, size: done.size });
+      setState({ busy: false, message: 'Uploaded. Save to keep it.', error: false });
+      input.current?.closest('form')?.dispatchEvent(new Event('change', { bubbles: true }));
+    } catch (err) {
+      setState({ busy: false, message: err.message, error: true });
+    }
+    if (input.current) input.current.value = '';
+  }
+
+  return (
+    <div>
+      <input type="hidden" name={name} value={file ? file.id : ''} />
+      {file ? (
+        <p className="filechip">
+          <a href={`/files/${file.id}/${encodeURIComponent(file.filename)}`} target="_blank" rel="noreferrer">{file.filename}</a>
+          <span className="muted small"> {size(file.size)}</span>
+          <button type="button" className="linkbtn" onClick={() => { setFile(null); setState({ busy: false, message: 'Removed. Save to keep the change.', error: false }); }}>Remove</button>
+        </p>
+      ) : <p className="muted small">No file yet.</p>}
+      <input ref={input} type="file" accept={types} hidden onChange={(e) => upload(e.target.files[0])} />
+      <p style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+        <button type="button" className="btn plain" disabled={state.busy} onClick={() => input.current?.click()}>{file ? 'Replace file' : accept === 'pdf' ? 'Choose PDF' : 'Choose file'}</button>
+        {state.message ? <span role="status" className="small" style={{ color: state.error ? '#b3161b' : '#55587f', fontWeight: 600 }}>{state.message}</span> : null}
+      </p>
+    </div>
   );
 }

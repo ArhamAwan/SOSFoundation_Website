@@ -10,14 +10,16 @@ import { setPreviewMode } from '@/app/admin/actions';
 export default async function Dashboard({ searchParams }) {
   const user = await requireUser();
   const params = await searchParams;
-  const [news, stories, media, preview, [{ n: users }], [{ n: newSubs }]] = await Promise.all([listItems('news'), listItems('story'), mediaMap(), isPreview(), q('SELECT count(*)::int AS n FROM users WHERE active'), q(`SELECT count(*)::int AS n FROM submissions WHERE status = 'new'`)]);
+  const [news, stories, media, preview, [{ n: users }], [{ n: newSubs }], kinds] = await Promise.all([listItems('news'), listItems('story'), mediaMap(), isPreview(), q('SELECT count(*)::int AS n FROM users WHERE active'), q(`SELECT count(*)::int AS n FROM submissions WHERE status = 'new'`),
+    q(`SELECT type, count(*)::int AS n FROM items GROUP BY type`)]);
+  const of = (t) => Number(kinds.find((k) => k.type === t)?.n || 0);
   const photos = [...media.values()];
   const count = (items, test) => items.filter(test).length;
   const has = (item, word) => issuesOf(item, media).some((i) => i.includes(word));
 
   const todo = [
     [count(news, (i) => has(i, 'No date')), (n) => `${n} news post${n === 1 ? ' has' : 's have'} no date`, 'A post needs a date before it can go live.', '/admin/news?show=issues'],
-    [count(news, (i) => has(i, 'eta description')), (n) => `${n} news post${n === 1 ? ' needs' : 's need'} a meta description`, 'The brief asks for 150 to 160 characters on every post.', '/admin/news?show=issues'],
+    [count(news, (i) => has(i, 'eta description')), (n) => `${n} news post${n === 1 ? ' needs' : 's need'} a meta description`, 'Aim for 150 to 160 characters on every post.', '/admin/news?show=issues'],
     [count(stories, (i) => !i.data.consent_confirmed), (n) => `${n} success stor${n === 1 ? 'y has' : 'ies have'} no consent confirmed`, 'A story cannot go live until consent is confirmed.', '/admin/success-stories?show=issues'],
     [count(stories, (i) => !i.data.image), (n) => `${n} success stor${n === 1 ? 'y has' : 'ies have'} no photo`, 'The website shows a placeholder until a photo is chosen.', '/admin/success-stories'],
     [count(photos, (m) => m.shows_people && !m.consent), (n) => `${n} photo${n === 1 ? ' has' : 's have'} no consent recorded`, 'Photos showing children or beneficiaries are hidden from the live website until consent is recorded.', '/admin/media?show=consent'],
@@ -26,9 +28,9 @@ export default async function Dashboard({ searchParams }) {
 
   const tiles = [
     [newSubs, 'New leads', '/admin/submissions'],
-    [seed.counts.programmes, 'Programmes', '/admin/programmes'], [news.length, 'News and events', '/admin/news'], [0, 'Blog posts', '/admin/blog'],
-    [stories.length, 'Success stories', '/admin/success-stories'], [0, 'Reports', '/admin/reports'], [seed.counts.albums, 'Gallery albums', '/admin/gallery'],
-    [seed.counts.partners, 'Partners', '/admin/partners'], [photos.length, 'Photos in library', '/admin/media'], ...(user.isAdmin ? [[users, 'Users', '/admin/users']] : []),
+    [seed.counts.programmes, 'Programmes', '/admin/programmes'], [news.length, 'News and events', '/admin/news'], [of('blog'), 'Blog posts', '/admin/blog'],
+    [stories.length, 'Success stories', '/admin/success-stories'], [of('report'), 'Reports', '/admin/reports'], [of('album'), 'Gallery albums', '/admin/gallery'],
+    [of('partner'), 'Partners', '/admin/partners'], [photos.length, 'Photos in library', '/admin/media'], ...(user.isAdmin ? [[users, 'Users', '/admin/users']] : []),
   ];
 
   return (

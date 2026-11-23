@@ -4,7 +4,10 @@ import { redirect } from 'next/navigation';
 import { checkLogin, countUsers, createSession, requireAdmin, requireUser } from '@/lib/auth';
 import { q, setSetting } from '@/lib/db';
 import { hashPassword, verifyPassword, MIN_PASSWORD } from '@/lib/password';
-import { TYPES, getItem, isPreview, issuesOf, mediaMap, uniqueSlug } from '@/lib/content';
+import { TYPES, getItem, isPreview, issuesOf, mediaMap, uniqueSlug, youtubeId } from '@/lib/content';
+import { COLLECTIONS, hereOf } from '@/lib/collections';
+import { deleteFile } from '@/lib/files';
+import { SITE, pageEdits, pageFields, savePageEdits } from '@/lib/overrides';
 
 const text = (form, name) => String(form.get(name) ?? '').trim();
 const go = (path, kind, message) => redirect(`${path}${path.includes('?') ? '&' : '?'}${kind}=${encodeURIComponent(message)}`);
@@ -51,6 +54,10 @@ export async function saveItem(form) {
       ? { date: /^\d{4}-\d{2}-\d{2}$/.test(text(form, 'date')) ? text(form, 'date') : null, location: text(form, 'location'), category: text(form, 'category'),
           programme: text(form, 'programme'), partners: text(form, 'partners'), body: text(form, 'body'), image, caption: text(form, 'caption'),
           gallery: form.getAll('gallery').map(Number).filter(Boolean), meta_description: text(form, 'meta_description'), home: [1, 2, 3].includes(Number(form.get('home'))) ? Number(form.get('home')) : 0 }
+      : type === 'blog'
+      ? { date: /^\d{4}-\d{2}-\d{2}$/.test(text(form, 'date')) ? text(form, 'date') : null, author: text(form, 'author'), role: text(form, 'role'),
+          category: text(form, 'category'), programme: text(form, 'programme'), body: text(form, 'body'), excerpt: text(form, 'excerpt').slice(0, 400),
+          link: /^\/[a-z0-9\-/]*$/.test(text(form, 'link')) ? text(form, 'link') : '', image, meta_description: text(form, 'meta_description') }
       : { programme: text(form, 'programme'), focus: text(form, 'focus'), location: text(form, 'location'), partners: text(form, 'partners'), body: text(form, 'body'),
           image, layout: text(form, 'layout') === 'landscape' ? 'landscape' : 'portrait', featured: form.get('featured') === 'on', consent_confirmed: form.get('consent_confirmed') === 'on' };
 
@@ -105,7 +112,7 @@ export async function saveMedia(form) {
 export async function deleteMedia(form) {
   await requireAdmin();
   const id = Number(form.get('id')) || 0;
-  const used = await q(`SELECT title FROM items WHERE (data->>'image')::int = $1 OR data->'gallery' @> $2::text::jsonb LIMIT 3`, [id, JSON.stringify([id])]);
+  const used = await q(`SELECT title FROM items WHERE (data->>'image')::int = $1 OR (data->>'logo')::int = $1 OR data->'gallery' @> $2::text::jsonb LIMIT 3`, [id, JSON.stringify([id])]);
   if (used.length) go(`/admin/media?id=${id}`, 'error', 'This photo is used in: ' + used.map((u) => u.title).join('; ') + '. Remove it there first.');
   await q('DELETE FROM media WHERE id = $1', [id]);
   go('/admin/media', 'ok', 'Photo deleted.');
@@ -196,4 +203,131 @@ export async function deleteSubmission(form) {
   await q('DELETE FROM submissions WHERE id = $1', [Number(form.get('id')) || 0]);
   const back = String(form.get('back') || '').replace(/[^\w=&%.+\-]/g, '');
   go(`/admin/submissions${back ? '?' + back : ''}`, 'ok', 'Lead deleted.');
+}
+
+
+// ---- Fixed pages: text and photo edits (Pages, Programmes, Board and messages, Site settings) ----
+const tidy = (v) => String(v ?? '').replace(/\r\n/g, '\n').split('\n').map((l) => l.replace(/[ \t]+/g, ' ').trim()).join('\n').trim();
+
+export async function savePage(form) {
+  await requireUser();
+  const path = String(form.get('path') ?? '');
+  const man = pageFields(path);
+  const back = String(form.get('back') || '/admin/pages');
+  const here = path === SITE ? '/admin/settings' : `/admin/pages/edit?p=${encodeURIComponent(path)}&from=${encodeURIComponent(back)}`;
+  if (!man) go(back, 'error', 'That page cannot be edited.');
+  const old = await pageEdits(path);
+  const fields = {};
+  for (const f of man.fields) {
+    if (form.get('reset:' + f.k)) continue;   // back to the original
+    const raw = form.get('f:' + f.k);
+    if (f.kind === 'image') {
+      const media = Number(raw) || 0;
+      const alt = tidy(form.get('alt:' + f.k)).slice(0, 300);
+      if (media) fields[f.k] = { media, alt };
+      else if (alt && alt !== f.alt) fields[f.k] = { alt };   // the original photo with a better description
+      continue;
+    }
+    if (raw === null) { if (old.fields?.[f.k]) fields[f.k] = old.fields[f.k]; continue; }
+    const value = tidy(raw).slice(0, 5000);
+    if (f.kind === 'url') {
+      if (value && value !== f.md) {
+        if (!/^https?:\/\//.test(value)) go(here, 'error', `${f.label}: the link must start with https://`);
+        fields[f.k] = { url: value };
+      }
+    } else if (f.kind === 'phone' || f.kind === 'email') {
+      if (value && value !== f.md) {
+        if (f.kind === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) go(here, 'error', 'Email: that does not look like an email address.');
+        fields[f.k] = { text: value };
+      }
+    } else if (value !== f.md) {
+      if (!value) go(here, 'error', `${f.label} in "${f.section}" is empty. Write something, or tick "Undo my change" to show the original.`);
+      fields[f.k] = { md: value };
+    }
+  }
+  const edits = { fields };
+  if (path !== SITE) {
+    const title = tidy(form.get('meta_title')).slice(0, 200);
+    const description = tidy(form.get('meta_description')).slice(0, 400);
+    if (title && title !== man.title) edits.title = title;
+    if (description && description !== man.description) edits.description = description;
+  }
+  await savePageEdits(path, edits);
+  go(here, 'ok', 'Saved. The page on the website is updated.');
+}
+
+// ---- Partners, reports and the gallery (one list-and-editor pattern; fields in lib/collections.js) ----
+export async function saveEntry(form) {
+  const user = await requireUser();
+  const type = text(form, '_collection');
+  const def = COLLECTIONS[type];
+  if (!def) redirect('/admin');
+  const id = Number(form.get('id')) || 0;
+  const [existing] = id ? await q('SELECT * FROM items WHERE type = $1 AND id = $2', [type, id]) : [];
+  const here = hereOf(type, `edit=${existing ? existing.id : 'new'}`);
+  const title = text(form, 'title').slice(0, 300);
+  if (!title) go(here, 'error', `Add a ${def.fields[0].label.toLowerCase()} before saving.`);
+  const data = { ...(existing?.data || {}) };
+  let sort = existing ? existing.sort : null;
+  let live = existing ? existing.status === 'published' : true;
+  const dropped = [];
+  for (const f of def.fields) {
+    const raw = form.get(f.name);
+    const v = text(form, f.name);
+    switch (f.kind) {
+      case 'text': if (f.name !== 'title') data[f.name] = v.slice(0, 300); break;
+      case 'textarea': data[f.name] = v.slice(0, 2000); break;
+      case 'select': data[f.name] = f.options.includes(v) ? v : ''; break;
+      case 'url':
+        if (v && !/^https?:\/\/[^\s]+\.[^\s]+$/.test(v)) go(here, 'error', `${f.label}: write the full address, starting with https://`);
+        data[f.name] = v; break;
+      case 'youtube':
+        if (v && !youtubeId(v)) go(here, 'error', 'That does not look like a YouTube link. Copy the address of the video from YouTube.');
+        data[f.name] = v; break;
+      case 'date': data[f.name] = /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : null; break;
+      case 'year':
+        if (v && !(/^\d{4}$/.test(v) && Number(v) > 1990 && Number(v) < 2100)) go(here, 'error', 'Year: write it as four digits, for example 2026.');
+        data[f.name] = v; break;
+      case 'number': sort = Number.isFinite(Number(v)) && v !== '' ? Math.round(Number(v)) : sort; break;
+      case 'check': data[f.name] = form.get(f.name) === 'on'; break;
+      case 'status': live = form.get(f.name) === 'on'; break;
+      case 'image': data[f.name] = Number(raw) || null; break;
+      case 'images': data[f.name] = form.getAll(f.name).map(Number).filter(Boolean); break;
+      case 'file': {
+        const next = Number(raw) || null;
+        if (data[f.name] && data[f.name] !== next) dropped.push(data[f.name]);   // replaced or removed: deleted once the save has worked
+        data[f.name] = next; break;
+      }
+      default: break;
+    }
+  }
+  const status = live ? 'published' : 'draft';
+  const slug = await uniqueSlug(type, title, id);
+  let savedId = existing?.id;
+  if (existing) {
+    await q(`UPDATE items SET slug = $1, title = $2, status = $3, data = $4::text::jsonb, sort = $5, updated_at = now(), updated_by = $6 WHERE id = $7`,
+      [slug, title, status, JSON.stringify(data), sort ?? existing.sort, user.id, existing.id]);
+  } else {
+    // New partners go last; new albums, videos and clippings go first.
+    const [{ lo, hi }] = await q('SELECT coalesce(min(sort), 0) AS lo, coalesce(max(sort), 0) AS hi FROM items WHERE type = $1', [type]);
+    const pos = sort ?? (type === 'partner' || type === 'report' ? Number(hi) + 1 : Number(lo) - 1);
+    [{ id: savedId }] = await q(`INSERT INTO items (type, slug, title, status, data, updated_by, sort) VALUES ($1, $2, $3, $4, $5::text::jsonb, $6, $7) RETURNING id`,
+      [type, slug, title, status, JSON.stringify(data), user.id, pos]);
+  }
+  for (const fileId of dropped) await deleteFile(fileId);
+  const issues = issuesOf({ type, data }, await mediaMap());
+  const note = issues.length && live ? ` Not shown on the website until fixed: ${issues.join('; ')}.` : '';
+  go(hereOf(type, `edit=${savedId}`), note ? 'error' : 'ok', (existing ? 'Saved.' : `${def.noun[0].toUpperCase() + def.noun.slice(1)} added.`) + (note || (live ? ' The website is updated.' : ' It is hidden from the website.')));
+}
+
+export async function deleteEntry(form) {
+  await requireAdmin();
+  const type = text(form, 'type');
+  const def = COLLECTIONS[type];
+  if (!def) redirect('/admin');
+  const id = Number(form.get('id')) || 0;
+  const [item] = await q('SELECT data FROM items WHERE type = $1 AND id = $2', [type, id]);
+  if (item?.data?.file) await deleteFile(item.data.file);
+  await q('DELETE FROM items WHERE type = $1 AND id = $2', [type, id]);
+  go(hereOf(type), 'ok', `${def.noun[0].toUpperCase() + def.noun.slice(1)} deleted.`);
 }
