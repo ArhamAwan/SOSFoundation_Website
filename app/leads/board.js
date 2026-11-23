@@ -3,6 +3,9 @@
 import { FORMS, STATUS, emailOf, formatWhen, nameOf, phoneOf, subOf, whatsappOf } from '@/lib/leads';
 import { Flash, Ico, formLook } from './ui';
 
+// Short tab names, so every form fits on one line (the full name is in the tooltip and on each lead).
+const TAB = { 'Volunteer Registration': 'Volunteer', 'Youth Registration': 'Youth' };
+
 const SEG = [['new', 'New'], ['progress', 'In progress'], ['closed', 'Closed']];
 
 /**
@@ -33,9 +36,14 @@ export function LeadsBoard({ base, params, f, counts, rows, lead, head, exportHr
           <div className="lp-stat"><b>{counts.week}</b><span>this week</span></div>
           <div className="lp-stat"><b>{counts.total}</b><span>in total</span></div>
         </div>
+        <div className="lp-filter">
         <nav className="lp-tabs" aria-label="Forms">
-          <a className="lp-tab" href={tabHref('')} aria-current={!f.form ? 'true' : undefined}>All <i>{counts.total}</i></a>
-          {forms.map((name) => <a key={name} className="lp-tab" href={tabHref(name)} aria-current={f.form === name ? 'true' : undefined}>{name} <i>{counts.byForm[name] || 0}</i></a>)}
+          <a className="lp-tab" href={tabHref('')} aria-current={!f.form ? 'true' : undefined}><Ico name="squares-four" />All <i>{counts.total}</i></a>
+          {forms.map((name) => {
+            const look = formLook(name);
+            const n = counts.byForm[name] || 0;
+            return <a key={name} className={'lp-tab' + (n ? '' : ' zero')} style={{ '--c': look.colour }} href={tabHref(name)} title={name} aria-current={f.form === name ? 'true' : undefined}><Ico name={look.icon} />{TAB[name] || name} <i>{n}</i></a>;
+          })}
         </nav>
         <form className="lp-tools" role="search" method="get" action={base}>
           {f.form ? <input type="hidden" name="form" value={f.form} /> : null}
@@ -46,9 +54,10 @@ export function LeadsBoard({ base, params, f, counts, rows, lead, head, exportHr
             <option value="">All statuses</option>
             {Object.entries(STATUS).map(([v, [, l]]) => <option key={v} value={v}>{l}</option>)}
           </select>
-          <button className="lp-btn ghost" type="submit">Search</button>
+          <button className="lp-btn" type="submit">Search</button>
           {filtered ? <a className="lp-btn ghost" href={link(part('form', f.form))}>Clear</a> : null}
         </form>
+        </div>
         <Flash params={lead ? {} : params} />
       </div>
 
