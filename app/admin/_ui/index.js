@@ -1,5 +1,5 @@
 // Small building blocks used by every admin screen.
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import icons from '@/lib/generated/icons.json';
 import nav from '@/lib/generated/nav.json';
 import { SideNav } from './client';

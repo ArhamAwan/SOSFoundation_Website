@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import { requireUser } from '@/lib/auth';
 import { BLOG_CATEGORIES, formatDate, isPreview, listItems, mediaMap } from '@/lib/content';
 import { Badge, Flash, Head, Icon } from '@/app/admin/_ui';

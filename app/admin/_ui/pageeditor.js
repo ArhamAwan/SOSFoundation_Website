@@ -1,6 +1,6 @@
 // The editor for a fixed page's text and photos (Pages, Programmes, Board and messages, Site settings).
 // Fields come from lib/generated/fields.json; saved edits from lib/overrides.js. Design: the "Admin: Page editor" board.
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import { mediaMap } from '@/lib/content';
 import { SITE, pageEdits, pageFields } from '@/lib/overrides';
 import { Badge, Field, Flash, Head } from '@/app/admin/_ui';

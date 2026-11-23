@@ -1,7 +1,7 @@
 'use client';
 // The few parts of the admin that need to run in the browser.
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import { usePathname, useRouter } from 'next/navigation';
 
 /** A submit button that asks first. */

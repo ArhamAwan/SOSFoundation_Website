@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import { notFound } from 'next/navigation';
 import { requireUser } from '@/lib/auth';
 import { PROGRAMMES, getItem, isPreview, mediaMap } from '@/lib/content';

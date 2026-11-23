@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import { requireUser } from '@/lib/auth';
 import { q } from '@/lib/db';
 import { formatDate, isLive, isPreview, issuesOf, listItems, mediaMap } from '@/lib/content';

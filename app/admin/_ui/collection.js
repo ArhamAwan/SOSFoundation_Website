@@ -1,5 +1,5 @@
 // The list-and-editor screen used by Partners, Reports and Publications, and Gallery.
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import { formatDate, isPreview, listItems, mediaMap, fileSize, youtubeId } from '@/lib/content';
 import { COLLECTIONS, GALLERY_TABS, hereOf } from '@/lib/collections';
 import { filesById } from '@/lib/files';

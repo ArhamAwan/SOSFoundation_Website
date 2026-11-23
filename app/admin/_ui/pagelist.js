@@ -1,5 +1,5 @@
 // The list of fixed pages for Pages, Programmes and Board and messages. Each opens the page editor.
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import { changeCounts, pagesFor } from '@/lib/overrides';
 import { Badge, Head } from '@/app/admin/_ui';
 

@@ -1,5 +1,5 @@
 // The list screen and the publish box are the same for news posts and success stories.
-import Link from 'next/link';
+import Link from '@/app/admin/_ui/link';
 import { TYPES, isLive, issuesOf } from '@/lib/content';
 import { Badge, Icon } from './index';
 import { ConfirmButton } from './client';
